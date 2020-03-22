@@ -4,7 +4,7 @@ from utils import POTCAR_PATH, LIB_PATH, periodic_table_lookup, template
 
 # ----------------------------------------------------------------------------------------------------------------------
 
-def to_vasp(d, struct):
+def d_struct_to_vasp(d, struct):
     """输出 INCAR, POSCAR4, KPOINTS, POTCAR。拷贝 CHGCAR/WAVECAR。
 
     Args:
@@ -19,7 +19,7 @@ def to_vasp(d, struct):
             if k not in d['hidden']:
                 file.write("{k} = {v}\n")
     #
-    atoms = ase.Atoms(symbols=struct.X['symbol'], positions=struct.X[['x', 'y', 'z']], cell=struct.A)
+    atoms = ase.Atoms(symbols=struct.XS.S, positions=struct.XS[['X', 'Y', 'Z']], cell=struct.A)
     ase.io.write("POSCAR", images=atoms, format="vasp")
     #
     template(i = f"{LIB_PATH}/KPOINTS.{d['kpoints'][0]}", o = "KPOINTS", d = d)

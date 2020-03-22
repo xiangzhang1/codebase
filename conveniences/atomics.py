@@ -1,6 +1,16 @@
-import pandas as pd
 from ..utils import slugify
 from ..atomics import Struct
+
+def exec_file(d, path):
+    # 文件用 # 分块
+    for i in range(3):
+        with open(path, "r") as file:
+            for block in file.read().split('#'):
+                try:
+                    d.exec('#' + block)
+                except:
+                    if i == 2:
+                        raise
 
 def exec_shorthand(d, text):
     # exec_shorthand(d, "insulator, qd, spin=fm")
@@ -16,20 +26,9 @@ def exec_shorthand(d, text):
             except NameError:   # spin=fm
                 d[l] = r
 
-def exec_file(d, path):
-    # 文件用 # 分块
-    for i in range(3):
-        with open(path, "r") as file:
-            for block in file.read().split('#'):
-                try:
-                    d.exec('#' + block)
-                except:
-                    if i == 2:
-                        raise
-
-def AXsymbol_to_struct(A, X, symbol):
+def axs_to_struct(A, X, S):
     struct = Struct()
     struct.A = A
-    struct.X = pd.DataFrame(X, columns=['x', 'y', 'z'])
-    struct.X['symbol'] = symbol
+    struct.XS[['X','Y','Z']] = X
+    struct.XS['S'] = S
     return struct

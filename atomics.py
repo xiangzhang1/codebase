@@ -5,12 +5,12 @@ class Struct(object):
     """
     Attributes:
         A (3x3 numpy array): translation vector of unit cell, or None
-        X (pandas DataFrame: x, y, z, symbol): cartesian coordinates
+        XS (pandas DataFrame: x, y, z, s): cartesian coordinates and chemical symbols
     """
     def __init__(self):
         super().__init__()
         self.A = None
-        self.X = pd.DataFrame(columns=['x', 'y', 'z', 'symbol'])
+        self.XS = pd.DataFrame(columns=['X', 'Y', 'Z', 'S'])
 
     @property
     def stoichiometry(self):
@@ -18,8 +18,8 @@ class Struct(object):
         Returns:
             OrderedDict: stoichiometry sorted by symbol A-Z.
         """
-        self.X.sort_values(by='symbol', inplace=True)
-        return collections.OrderedDict(self.X.symbol.value_counts(ascending=True))
+        self.XS.sort_values(by='S', inplace=True)
+        return collections.OrderedDict(self.XS.S.value_counts(ascending=True))
 
 class D(collections.MutableMapping):
     # emulates dict
