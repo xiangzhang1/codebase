@@ -1,29 +1,10 @@
 import collections
 import pandas as pd
 
-class Struct(object):
-    """
-    Attributes:
-        A (3x3 numpy array): translation vector of unit cell, or None
-        XS (pandas DataFrame: x, y, z, s): cartesian coordinates and chemical symbols
-    """
-    def __init__(self):
-        super().__init__()
-        self.A = None
-        self.XS = pd.DataFrame(columns=['X', 'Y', 'Z', 'S'])
-
-    @property
-    def stoichiometry(self):
-        """
-        Returns:
-            OrderedDict: stoichiometry sorted by symbol A-Z.
-        """
-        self.XS.sort_values(by='S', inplace=True)
-        return collections.OrderedDict(self.XS.S.value_counts(ascending=True))
-
 class D(collections.MutableMapping):
     # emulates dict
     def __init__(self, *args, **kwargs):
+        super().__init__()
         self._dict = dict()
         self.update(dict(*args, **kwargs))
 
@@ -49,4 +30,22 @@ class D(collections.MutableMapping):
         # d.exec('isif=4')
         exec(expr, globals(), self)
 
+class Struct(object):
+    """
+    Attributes:
+        A (3x3 numpy array): translation vector of unit cell, or None
+        XS (pandas DataFrame: x, y, z, s): cartesian coordinates and chemical symbols
+    """
+    def __init__(self):
+        super().__init__()
+        self.A = None
+        self.XS = pd.DataFrame(columns=['X', 'Y', 'Z', 'S'])
 
+    @property
+    def stoichiometry(self):
+        """
+        Returns:
+            OrderedDict: stoichiometry sorted by symbol A-Z.
+        """
+        self.XS.sort_values(by='S', inplace=True)
+        return collections.OrderedDict(self.XS.S.value_counts(ascending=True))
