@@ -31,9 +31,12 @@ class D(collections.MutableMapping):
 
 class Struct(object):
     """
-    Attributes:
-        A (3x3 numpy array): translation vector of unit cell, or None
-        XS (pandas DataFrame: X, Y, Z, S): cartesian coordinates and chemical symbols
+    Attributes
+    ----------
+    A : 3x3 numpy array
+        Translation vector of unit cell, or None
+    XS : pandas.DataFrame(columns=(X,Y,Z,S))
+        Cartesian coordinates and chemical symbols
     """
     def __init__(self):
         self.A = None
@@ -42,8 +45,10 @@ class Struct(object):
     @property
     def stoichiometry(self):
         """
-        Returns:
-            OrderedDict: stoichiometry sorted by symbol A-Z.
+        Returns
+        -------
+        OrderedDict
+            Stoichiometry sorted by symbol A-Z.
         """
         self.XS.sort_values(by='S', inplace=True)
         return collections.OrderedDict(self.XS.S.value_counts(ascending=True))

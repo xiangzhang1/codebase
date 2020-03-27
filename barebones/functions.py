@@ -5,14 +5,15 @@ from utils import POTCAR_PATH, LIB_PATH, periodic_table_lookup, template
 # ----------------------------------------------------------------------------------------------------------------------
 
 def d_struct_to_vasp(d, struct):
-    """输出 INCAR, POSCAR4, KPOINTS, POTCAR。拷贝 CHGCAR/WAVECAR。
+    """Writes INCAR, POSCAR4, KPOINTS, POTCAR. Copies CHGCAR/WAVECAR.
 
-    Args:
-        d (dict): # 材料相关，求值模式，简化近似，辅助行为
-            hidden: {'hidden'}              # 不写入 INCAR
-            kpoints: ['template', ...]      # KPOINTS 模板
-            psi0, rho0, rho = 0 | path      # 迭代初始值
-        struct (Struct):
+    Parameters
+    ----------
+    d : D                               # 材料相关，求值模式，简化近似，辅助行为
+        hidden: {'hidden'}              # 不写入 INCAR
+        kpoints: ['template', ...]      # KPOINTS 模板
+        psi0, rho0, rho = 0 | path      # 迭代初始值
+    struct : Struct
     """
     with open("INCAR", "w") as file:
         for k, v in d.items():
@@ -35,14 +36,9 @@ def d_struct_to_vasp(d, struct):
 
 def to_slurm(d):
     """
-    Args:
-        d (dict):
-            software: 'vasp'
-            cluster: 'nersc'
-
     Parameters
     ----------
-    d: dict
+    d: D
         software: 'vasp'
         cluster: 'nersc'
     """

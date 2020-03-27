@@ -1,27 +1,27 @@
 class Op:
     """
-    Examples:
-        Clumsily emulates `tf.Operation`_::
+    Examples
+    -------
+    Clumsily emulates `tf.Operation`_::
 
-            >>> op = Op(add, inputs=[1,2], name='add:0')
-            >>> op.run()
-            3
+        >>> op = Op(add, inputs=[1,2], name='add:0')
+        >>> op.run()
+        3
 
-        `tf.add` creates an op, but instead of returning that op, returns its output tensor. You can do that shit too::
+    `tf.add` creates an op, but instead of returning that op, returns its output tensor. You can do that shit too::
 
-            >>> def add(x, y):
-            ...     return Op(add, inputs=[x, y], name='x').output
-            >>> a = add(1, 2)
+        >>> def add(x, y):
+        ...     return Op(add, inputs=[x, y], name='x').output
+        >>> a = add(1, 2)
 
+    Attributes
+    ----------
+    function : function(PrimitiveType -> PrimitiveType [1]_)
+    inputs : list of Tensor or PrimitiveType
+    output : Tensor
+    name : str
 
-        .. _tf.Operation: https://www.tensorflow.org/api_docs/python/tf/Operation
-
-    Attributes:
-        function (PrimitiveType -> PrimitiveType [1]_):
-        inputs (list of Tensor or PrimitiveType):
-        output (Tensor):
-        name (str):
-
+    .. _tf.Operation: https://www.tensorflow.org/api_docs/python/tf/Operation
     .. [1] Not necessarily primitiveType, but "regular" (i.e. non-Tensor) types.
     """
 
@@ -37,9 +37,12 @@ class Op:
 
 class Tensor:
     """
-    Attributes:
-        op (Op): The Op whose output is this Tensor.
-        value (PrimitiveType): Cached value.
+    Attributes
+    ----------
+    op : Op
+        The Op whose output is this Tensor.
+    value :PrimitiveType
+        Cached value.
     """
     def __init__(self, op, value):
         self.op = op
@@ -47,8 +50,10 @@ class Tensor:
 
     def eval(self):
         """
-        Returns:
-            PrimitiveType: Result of corresponding op. If value is not None, returns value instead.
+        Returns
+        -------
+        PrimitiveType:
+            Result of corresponding op. If value is not None, returns value instead.
         """
         if self.value is None:
             self.value = self.op.run()
