@@ -2,9 +2,8 @@ import collections
 import pandas as pd
 
 class D(collections.MutableMapping):
-    # emulates dict
+    # emulates a dict
     def __init__(self, *args, **kwargs):
-        super().__init__()
         self._dict = dict()
         self.update(dict(*args, **kwargs))
 
@@ -12,7 +11,7 @@ class D(collections.MutableMapping):
         return self._dict[key]
 
     def __setitem__(self, key, value):
-        # ValueError: ('overwrite', 'isif', 4, 'with', 3)
+        # ValueError: ('overwrite', 'isif', 1, 'with', 2)
         if key in self._dict and self._dict[key] != value:
             raise ValueError('overwrite', key, self._dict[key], 'with', value)
         self._dict[key] = value
@@ -27,17 +26,16 @@ class D(collections.MutableMapping):
         return len(self._dict)
 
     def exec(self, expr):
-        # d.exec('isif=4')
-        exec(expr, globals(), self)
+        # d.exec('isif=1')
+        exec(expr, globals(), self)     # globals must be a dict
 
 class Struct(object):
     """
     Attributes:
         A (3x3 numpy array): translation vector of unit cell, or None
-        XS (pandas DataFrame: x, y, z, s): cartesian coordinates and chemical symbols
+        XS (pandas DataFrame: X, Y, Z, S): cartesian coordinates and chemical symbols
     """
     def __init__(self):
-        super().__init__()
         self.A = None
         self.XS = pd.DataFrame(columns=['X', 'Y', 'Z', 'S'])
 

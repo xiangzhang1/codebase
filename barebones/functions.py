@@ -1,5 +1,5 @@
 import subprocess
-import ase
+import ase, ase.io
 from utils import POTCAR_PATH, LIB_PATH, periodic_table_lookup, template
 
 # ----------------------------------------------------------------------------------------------------------------------

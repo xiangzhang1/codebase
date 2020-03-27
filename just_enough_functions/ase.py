@@ -1,5 +1,5 @@
 import ase, ase.io
-from .atomics import axs_to_struct
+from .objects import axs_to_struct
 
 def _atoms_to_struct(atoms):
     A = atoms.get_cell()

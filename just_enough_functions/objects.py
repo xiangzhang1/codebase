@@ -1,7 +1,7 @@
 from ..utils import slugify
-from ..atomics import Struct
+from ..barebones.objects import Struct
 
-def exec_file(d, path):
+def exec_file(path, d):
     # 文件用 # 分块
     for i in range(3):
         with open(path, "r") as file:
@@ -12,7 +12,7 @@ def exec_file(d, path):
                     if i == 2:
                         raise
 
-def exec_shorthand(d, text):
+def exec_shorthand(text, d):
     # exec_shorthand(d, "insulator, qd, spin=fm")
     for _ in text.split(','):
         _ = slugify(_)
