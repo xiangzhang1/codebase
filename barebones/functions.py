@@ -39,6 +39,12 @@ def to_slurm(d):
         d (dict):
             software: 'vasp'
             cluster: 'nersc'
+
+    Parameters
+    ----------
+    d: dict
+        software: 'vasp'
+        cluster: 'nersc'
     """
     template(i = f"{LIB_PATH}/submit.{d['software']}.{d['cluster']}", o = "submit", d = d)
     template(i = f"{LIB_PATH}/job.{d['software']}.{d['cluster']}", o = "job", d = d)
