@@ -13,7 +13,7 @@ class Op:
 
 class Tensor:
 
-    def __init__(self, op, value):
+    def __init__(self, op, value=None):
         self.op = op
         self.value = value
 
