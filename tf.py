@@ -2,7 +2,7 @@ class Op:
     """
     Examples
     -------
-    Clumsily emulates `tf.Operation`_::
+    Clumsily emulates `tf.Operation`_ (or perhaps `tf.layers.dense`)::
 
         >>> add = Op(operator.add, inputs=[1,2], name='add:0')
         >>> add.run()
@@ -23,7 +23,6 @@ class Op:
     output : Tensor
     name : str
 
-    .. _tf.Operation: https://www.tensorflow.org/api_docs/python/tf/Operation
     .. [1] Not necessarily primitiveType, but "regular" (i.e. non-Tensor) types.
     """
 
