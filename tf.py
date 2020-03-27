@@ -4,15 +4,17 @@ class Op:
     -------
     Clumsily emulates `tf.Operation`_::
 
-        >>> op = Op(add, inputs=[1,2], name='add:0')
-        >>> op.run()
+        >>> add = Op(operator.add, inputs=[1,2], name='add:0')
+        >>> add.run()
         3
 
-    `tf.add` creates an op, but instead of returning that op, returns its output tensor. You can do that shit too::
+    `tf.add` creates an op, but instead of returning that op, returns its output tensor. You can do that confusing shit too::
 
         >>> def add(x, y):
         ...     return Op(add, inputs=[x, y], name='x').output
         >>> a = add(1, 2)
+        >>> a.eval()
+        3
 
     Attributes
     ----------
