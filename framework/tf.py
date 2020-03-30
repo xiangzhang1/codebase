@@ -1,5 +1,6 @@
 class Op:
-    """
+    """Converts a function call into a node in the computational graph.
+
     Examples
     -------
     Clumsily emulates `tf.Operation`_ (or perhaps `tf.layers.dense`)::
@@ -37,7 +38,8 @@ class Op:
         return self.function(*(i.eval() if i is Tensor else i for i in self.inputs))
 
 class Tensor:
-    """
+    """Output of Op. Caches  value.
+
     Attributes
     ----------
     op : Op

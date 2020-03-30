@@ -12,7 +12,7 @@ def d_struct_to_vasp(d, struct):
     d : D                               # 材料相关，求值模式，简化近似，辅助行为
         hidden: {'hidden'}              # 不写入 INCAR
         kpoints: ['template', ...]      # KPOINTS 模板
-        psi0, rho0, rho = 0 | path      # 迭代初始值
+        psi0|rho0|rho = 0|path          # 迭代初始值
     struct : Struct
     """
     with open("INCAR", "w") as file:
