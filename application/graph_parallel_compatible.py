@@ -19,7 +19,7 @@ def make_function_gp_compatible(func):
     -----
     What is "graph-parallel compatible", and why do I need to modify toolbox functions? See README.
 
-    About `return 1`::
+    About `return 10086`::
 
         True, the return variable does nothing but resolves dependency. But if we let `to_vasp` return None, a future `Tensor.eval` will result in `Tensor.value=None`.
         Which is bad because `T.value=None` means "Tensor has yet to be evaluated", not "Tensor evaluated, evaluated value happens to be None". Thus `return 10086`.
