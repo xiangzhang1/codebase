@@ -1,16 +1,59 @@
 # Define some random tensors, say a, b and c. Then link them with operation c=a+b.
 
 class Tensor:
-    # Tensors contain values.
+    """Tensors contain values.
 
-    def __init__(self):
-        self.value = None
+    Attributes
+    ----------
+    op : Op
+        The Op whose output is this Tensor.
+    value : PrimitiveType
+        None if hasn't been evaluated.
+    """
 
-class Add:
+    def __init__(self, op, value):
+        self.op = op
+        self.value = value
 
-    def __init__(self, inputs, output):
+    def eval(self):
+        if self.value is None:
+            self.value = self.op.run()
+        return self.value
+
+class Op:
+    """Ops link Tensors.
+
+    Examples
+    --------
+    Not unlike `tf.layers.dense`::
+
+        >>> add = Op(operator.add, inputs=[1,2], output=None, name='add:0')
+        >>> add.run()
+        3
+
+    Except that `tf.add` creates an Op, but instead of returning that Op, returns its output Tensor. You can do that
+    confusing shit here too:
+
+        >>> def add(x, y):
+        ...     return Op(add, inputs=[x, y], output=None, name='x').output
+        >>> a = add(1, 2)
+        >>> a.eval()
+        3
+
+    Attributes
+    ----------
+    function : function(PrimitiveType -> PrimitiveType)
+    inputs : list of PrimitiveType or Tensor
+    output : Tensor
+    name : str
+    """
+
+    def __init__(self, function, inputs, output, name):
+        self.function = function
         self.inputs = inputs
-        self.output = output
+        self.output = Tensor(op=self, value=None) if output is None else output
+        self.name = name
 
     def run(self):
-        self.output.value = self.inputs[0].value + self.inputs[1].value
+        # Returns: PrimitiveType
+        return self.function(*(i.eval() if i is Tensor else i for i in self.inputs))
