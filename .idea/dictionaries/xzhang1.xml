@@ -7,7 +7,9 @@
       <w>kpoints</w>
       <w>poscar</w>
       <w>potcar</w>
+      <w>slurm</w>
       <w>stoichiometry</w>
+      <w>vasp</w>
       <w>wavecar</w>
     </words>
   </dictionary>

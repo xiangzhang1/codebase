@@ -12,6 +12,7 @@ class Tensor:
     """
 
     def __init__(self, op, value):
+        super().__init__()      # to be subclassed by application.graph_parallel_compat.Struct
         self.op = op
         self.value = value
 
@@ -31,8 +32,7 @@ class Op:
         >>> add.run()
         3
 
-    Except that `tf.add` creates an Op, but instead of returning that Op, returns its output Tensor. You can do that
-    confusing shit here too:
+    Except that `tf.add` creates an Op, but instead of returning that Op, returns its output Tensor. You can do that confusing shit here too:
 
         >>> def add(x, y):
         ...     return Op(add, inputs=[x, y], output=None, name='x').output
@@ -51,7 +51,11 @@ class Op:
     def __init__(self, function, inputs, output, name):
         self.function = function
         self.inputs = inputs
-        self.output = Tensor(op=self, value=None) if output is None else output
+        if output is None:
+            self.output = Tensor(op=self, value=None)
+        else:
+            self.output = output
+            output.op = self
         self.name = name
 
     def run(self):
