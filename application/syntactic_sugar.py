@@ -1,5 +1,4 @@
 from framework.graph_parallel import Tensor, Op
-from application.graph_parallel_compatible import to_vasp, to_slurm, submit, retrieve
 
 class Struct(Tensor):
     """
