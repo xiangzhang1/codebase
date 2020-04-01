@@ -5,7 +5,7 @@ Graph-parallel computation puts very stringent requirements on functions. We sat
 """
 
 import os
-from toolbox.barebones.functions import d_struct_to_vasp, to_slurm, submit, try_retrieve
+from toolbox.barebones.functions import to_vasp, to_slurm, submit, try_retrieve
 
 def _to_vasp(d, struct, path, *control_dependencies):
     """
@@ -24,10 +24,10 @@ def _to_vasp(d, struct, path, *control_dependencies):
         Exactly the same input struct.
 
     Example:
-    >>> _ = d_struct_to_vasp(d, struct, path='/run/folder1', control_dependency=_)
+    >>> _ = to_vasp(d, struct, path='/run/folder1', control_dependency=_)
     """
     os.chdir(path)
-    d_struct_to_vasp(d, struct)
+    to_vasp(d, struct)
     return struct
 
 def _to_slurm(d, struct, path, *control_dependencies):

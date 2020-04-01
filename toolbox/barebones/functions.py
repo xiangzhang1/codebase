@@ -4,7 +4,7 @@ from toolbox.utils import POTCAR_PATH, LIB_PATH, periodic_table_lookup, template
 
 # ----------------------------------------------------------------------------------------------------------------------
 
-def d_struct_to_vasp(d, struct):
+def to_vasp(d, struct):
     """Writes INCAR, POSCAR4, KPOINTS, POTCAR. Copies CHGCAR/WAVECAR.
 
     Parameters
@@ -60,6 +60,13 @@ class Pending(Exception):
     pass
 
 def try_retrieve(d):
+    """For recursion.
+
+    Raises
+    ------
+    Pending
+        If `not is_complete()`.
+    """
     if is_complete(d):
         retrieve(d)
     else:
