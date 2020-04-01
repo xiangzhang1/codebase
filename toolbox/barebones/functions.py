@@ -55,3 +55,12 @@ def is_complete(d):
 def retrieve(d):
     template(i=f"{LIB_PATH}/retrieve.{d['cluster']}", o="retrieve", d = d)
     subprocess.run("bash retrieve", shell=True)
+
+class Pending(Exception):
+    pass
+
+def try_retrieve(d):
+    if is_complete(d):
+        retrieve(d)
+    else:
+        raise Pending
