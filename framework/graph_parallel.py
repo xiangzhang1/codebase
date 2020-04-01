@@ -12,7 +12,6 @@ class Tensor:
     """
 
     def __init__(self, op, value):
-        super().__init__()      # to be subclassed by application.graph_parallel_compat.Struct
         self.op = op
         self.value = value
 
