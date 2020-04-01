@@ -1,7 +1,12 @@
+from application.weird_pure_functions import _to_vasp, _to_slurm, _submit, _retrieve
 from framework.graph_parallel import Tensor, Op
 
 class Struct(Tensor):
     """
+    Examples
+    --------
+    >>> poscar().set_d().set_path().to_vasp().to_slurm().retrieve().get_contcar().set_d()...
+
     Attributes
     ----------
     d : toolbox.barebones.objects.D
@@ -12,17 +17,35 @@ class Struct(Tensor):
         Yes. It's intended to house a `Struct`.
     """
 
-    def set_d(self, d):
+    def cache_d(self, d):
         self.d = d
         return self
 
-    def set_path(self, path):
+    def cache_path(self, path):
         self.path = path
         return self
 
     def next_satellite(self):
-        """`self.ns().ns().ns()` makes a chain of identical Tensors that all point to the same `toolbox.barebones.objects.Struct`."""
-        tensor = Struct(op=None, )
+        """`self.ns().ns().ns()` makes a chain of identical Tensors whose `value` attributes all point to the same `toolbox.barebones.objects.Struct`."""
+        return Struct(value=self.value).cache_d(self.d).cache_path(self.path)
 
     def to_vasp(self):
         """Make tensor. Link with operation."""
+        tensor = self.next_satellite()
+        op = Op(_to_vasp, inputs=[self.d, self.value, self.path], output=tensor)
+        return tensor
+
+    def to_slurm(self):
+        tensor = self.next_satellite()
+        op = Op(_to_slurm, inputs=[self.d, self.value, self.path], output=tensor)
+        return tensor
+
+    def submit(self):
+        tensor = self.next_satellite()
+        op = Op(_submit, inputs=[self.value, self.path], output=tensor)
+        return tensor
+
+    def retrieve(self):
+        tensor = self.next_satellite()
+        op = Op(_retrieve, inputs=[self.d, self.value, self.path], output=tensor)
+        return tensor

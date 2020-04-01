@@ -3,7 +3,7 @@ from framework.graph_parallel import Tensor, Op
 class Struct(Tensor):
     """
     Instead of
-    >>> _ = d_struct_to_vasp(d, struct, path='/run/folder1', op_dependency=None)
+    >>> _ = d_struct_to_vasp(d, struct, path='/run/folder1', control_dependencies=_)
     >>> _ = to_slurm(d, path='/run/folder1', op_dependency=_)
 
     we provide

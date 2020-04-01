@@ -11,7 +11,7 @@ class Tensor:
         None if hasn't been evaluated.
     """
 
-    def __init__(self, op, value):
+    def __init__(self, op=None, value=None):
         self.op = op
         self.value = value
 
@@ -51,7 +51,7 @@ class Op:
         self.function = function
         self.inputs = inputs
         if output is None:
-            self.output = Tensor(op=self, value=None)
+            self.output = Tensor(op=self)
         else:
             self.output = output
             output.op = self
