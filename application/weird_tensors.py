@@ -1,4 +1,4 @@
-from application.weird_pure_functions import _to_vasp, _to_slurm, _submit, _retrieve
+from application.weird_pure_functions import _to_vasp, _to_slurm, _submit, _try_retrieve
 from framework.graph_parallel import Tensor, Op
 
 class Struct(Tensor):
@@ -47,5 +47,5 @@ class Struct(Tensor):
 
     def retrieve(self):
         tensor = self.next_satellite()
-        op = Op(_retrieve, inputs=[self.d, self.value, self.path], output=tensor)
+        op = Op(_try_retrieve, inputs=[self.d, self.value, self.path], output=tensor)
         return tensor
