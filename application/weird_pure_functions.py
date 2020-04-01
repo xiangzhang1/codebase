@@ -22,6 +22,9 @@ def _to_vasp(d, struct, path, *control_dependencies):
     -------
     toolbox.barebones.objects.Struct
         Exactly the same input struct.
+
+    Example:
+    >>> _ = d_struct_to_vasp(d, struct, path='/run/folder1', control_dependency=_)
     """
     os.chdir(path)
     d_struct_to_vasp(d, struct)
