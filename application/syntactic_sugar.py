@@ -2,17 +2,14 @@ from framework.graph_parallel import Tensor, Op
 
 class Struct(Tensor):
     """
-    Instead of having to
+    Instead of
     >>> _ = d_struct_to_vasp(d, struct, path='/run/folder1', op_dependency=None)
     >>> _ = to_slurm(d, path='/run/folder1', op_dependency=_)
-    >>> ...
 
-    This weird mediator caches d and path, and handles op_dependency:
+    we provide
     >>> poscar().set_d().set_path().to_vasp().to_slurm().retrieve().get_contcar().set_d()...
 
-    Such syntactic sugar comes at the cost of code stench.
-    In `tensorflow`, only functions (e.g. `tf.add) can create Tensors. Very clean.
-    Here, `Tensor.to_vasp` creates Tensors. And not regular Tensors either; a subclass of Tensor that has arbitrary methods like `to_vasp`. Ewww.
+    at the cost of code weirdness. A special class of Tensors. Can create Ops using its methods. Op outputs same class of weird Tensors.
     """
 
     def set_path(self, path):
