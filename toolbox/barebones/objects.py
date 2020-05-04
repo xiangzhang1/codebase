@@ -33,8 +33,8 @@ class Struct(object):
     """
     Attributes
     ----------
-    A : 3x3 numpy array
-        Translation vector of unit cell, or None
+    A : 3x3 numpy array, or None
+        Unit cell
     XS : pandas.DataFrame(columns=(X,Y,Z,S))
         Cartesian coordinates and chemical symbols
     """

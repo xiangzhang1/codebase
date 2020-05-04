@@ -28,9 +28,7 @@ def template(i, o, d):
             )
 
 def slugify(value):
-    """str.strip(), but better.
-
-    Make a string URL- and filename-friendly.
+    """Make a string URL- and filename-friendly.
 
     Args:
         value (unicode): string to be converted

@@ -32,20 +32,20 @@ class Struct(Tensor):
     def to_vasp(self):
         """Make tensor. Link with operation."""
         tensor = self.next_satellite()
-        op = Op(_to_vasp, inputs=[self.d, self.value, self.path], output=tensor)
+        op = Op(_to_vasp, inputs=[self.d, self, self.path], output=tensor)
         return tensor
 
     def to_slurm(self):
         tensor = self.next_satellite()
-        op = Op(_to_slurm, inputs=[self.d, self.value, self.path], output=tensor)
+        op = Op(_to_slurm, inputs=[self.d, self, self.path], output=tensor)
         return tensor
 
     def submit(self):
         tensor = self.next_satellite()
-        op = Op(_submit, inputs=[self.value, self.path], output=tensor)
+        op = Op(_submit, inputs=[self, self.path], output=tensor)
         return tensor
 
     def retrieve(self):
         tensor = self.next_satellite()
-        op = Op(_try_retrieve, inputs=[self.d, self.value, self.path], output=tensor)
+        op = Op(_try_retrieve, inputs=[self.d, self, self.path], output=tensor)
         return tensor
