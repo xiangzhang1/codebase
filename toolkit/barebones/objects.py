@@ -25,8 +25,8 @@ class D(collections.MutableMapping):
     def __len__(self):
         return len(self._dict)
 
-    def exec(self, expr):
-        # d.exec('isif=1')
+    def execute(self, expr):
+        # d.execute('isif=1')
         exec(expr, globals(), self)     # globals must be a dict
 
 class Struct(object):

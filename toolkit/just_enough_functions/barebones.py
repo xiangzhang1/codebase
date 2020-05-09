@@ -7,7 +7,7 @@ def exec_file(path, d):
         with open(path, "r") as file:
             for block in file.read().split('#'):
                 try:
-                    d.exec('#' + block)
+                    d.execute('#' + block)
                 except:
                     if i == 2:
                         raise
