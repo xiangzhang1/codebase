@@ -9,11 +9,11 @@ class Struct(Tensor):
 
     Attributes
     ----------
-    d : toolbox.barebones.objects.D
+    d : toolkit.barebones.objects.D
         Cached. Temporary.
     path : str
         Cached. Temporary.
-    value : toolbox.barebones.objects.Struct
+    value : toolkit.barebones.objects.Struct
         Yes. It's intended to house a `Struct`.
     """
 
@@ -26,7 +26,7 @@ class Struct(Tensor):
         return self
 
     def next_satellite(self):
-        """`self.ns().ns().ns()` makes a chain of identical Tensors whose `value` attributes all point to the same `toolbox.barebones.objects.Struct`."""
+        """`self.ns().ns().ns()` makes a chain of identical Tensors whose `value` attributes all point to the same `toolkit.barebones.objects.Struct`."""
         return Struct(value=self.value).cache_d(self.d).cache_path(self.path)
 
     def to_vasp(self):

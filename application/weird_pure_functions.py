@@ -5,14 +5,14 @@ Graph-parallel computation puts very stringent requirements on functions. We sat
 """
 
 import os
-from toolbox.barebones.functions import to_vasp, to_slurm, submit, try_retrieve
+from toolkit.barebones.functions import to_vasp, to_slurm, submit, try_retrieve
 
 def _to_vasp(d, struct, path, *control_dependencies):
     """
     Parameters
     ----------
-    d : toolbox.barebones.objects.D
-    struct : toolbox.barebones.objects.Struct
+    d : toolkit.barebones.objects.D
+    struct : toolkit.barebones.objects.Struct
     path : str
         `os.chdir(); op()` isn't pure. Instead, specify path for every function.
     control_dependencies : list of PrimitiveType
@@ -20,7 +20,7 @@ def _to_vasp(d, struct, path, *control_dependencies):
 
     Returns
     -------
-    toolbox.barebones.objects.Struct
+    toolkit.barebones.objects.Struct
         Exactly the same input struct.
 
     Example:
