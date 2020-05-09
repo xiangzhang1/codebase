@@ -1,5 +1,5 @@
-from toolkit.utils import slugify
-from toolkit.barebones.objects import Struct
+from codebase.toolkit import slugify
+from codebase.toolkit.barebones.objects import Struct
 
 def exec_file(path, d):
     # 文件用 # 分块

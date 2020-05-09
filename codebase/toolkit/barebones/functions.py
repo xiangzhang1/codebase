@@ -1,6 +1,6 @@
 import subprocess
 import ase, ase.io
-from toolkit.utils import POTCAR_PATH, LIB_PATH, periodic_table_lookup, template
+from codebase.toolkit import POTCAR_PATH, LIB_PATH, periodic_table_lookup, template
 
 # ----------------------------------------------------------------------------------------------------------------------
 
