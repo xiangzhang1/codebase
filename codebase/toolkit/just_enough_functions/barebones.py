@@ -30,7 +30,7 @@ def exec_shorthand(text, d):
 def axs_to_struct(A, X, S):
     struct = Struct()
     struct.A = A
-    struct.XS = pd.DataFrame(X, columns=[['X','Y','Z']]).join(
+    struct.XS = pd.DataFrame(X, columns=('X','Y','Z')).join(
         pd.Series(S, name='S')
     )
     return struct
