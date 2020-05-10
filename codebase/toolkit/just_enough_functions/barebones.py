@@ -1,3 +1,4 @@
+import pandas as pd
 from codebase.toolkit.utils import slugify
 from codebase.toolkit.barebones.objects import Struct
 
@@ -29,6 +30,7 @@ def exec_shorthand(text, d):
 def axs_to_struct(A, X, S):
     struct = Struct()
     struct.A = A
-    struct.XS[['X','Y','Z']] = X
-    struct.XS['S'] = S
+    struct.XS = pd.DataFrame(X, columns=[['X','Y','Z']]).join(
+        pd.Series(S, name='S')
+    )
     return struct

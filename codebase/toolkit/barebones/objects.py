@@ -40,7 +40,7 @@ class Struct(object):
     """
     def __init__(self):
         self.A = None
-        self.XS = pd.DataFrame(columns=['X', 'Y', 'Z', 'S'])
+        self.XS = None
 
     @property
     def stoichiometry(self):
