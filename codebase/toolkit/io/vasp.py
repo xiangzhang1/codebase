@@ -76,6 +76,6 @@ def read_poscar(filename):
     ))                                                          # Direct
     FX = np.float32([line.split()[:3] for line in lines[8:8 + sum(stoichiometry.values())]])
     X = np.dot(FX, A)
-    S = [k for k,v in d.items() for _ in range(v)]
+    S = [k for k,v in stoichiometry.items() for _ in range(v)]
     return axs_to_struct(A, X, S)
 
