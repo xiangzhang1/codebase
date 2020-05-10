@@ -42,7 +42,7 @@ def struct2str(struct):
     label = dict2string(ordered_stoichiometry(struct))
     A = array2string(struct.A)
     _ = ordered_stoichiometry(struct)
-    stoichiometry = ' '.join(_.keys()) + '\n' + ' '.join(_.values())
+    stoichiometry = ' '.join(_.keys()) + '\n' + ' '.join(map(str, _.values()))
     X = array2string(struct.XS[['X','Y','Z']])
     return f"""{label}
     1.0
