@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
-from codebase.toolkit.optional.struct import axs_to_struct
+from codebase.toolkit.optional.functions.struct import axs_to_struct
+
 
 def array2string(arr):
     """

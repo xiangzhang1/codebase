@@ -1,6 +1,6 @@
 import collections
-from codebase.toolkit.optional.d import DMixin
-from codebase.toolkit.optional.struct import StructMixin
+from codebase.toolkit.optional.mixins.d import DMixin
+from codebase.toolkit.optional.mixins.struct import StructMixin
 
 
 class D(collections.MutableMapping, DMixin):

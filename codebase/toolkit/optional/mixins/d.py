@@ -1,5 +1,9 @@
 class DMixin(object):
-    """Add optional features to D and Struct via Mixin's."""
+    """
+    Adds behaviour (and nothing else) to D and Struct via `Mixin<https://stackoverflow.com/q/533631/6417519>`_'s.
+
+    Funnily enough, the `objects` module imports the `optional` module.
+    """
 
     def exec_file(self, path):
         # 文件用 # 分块
