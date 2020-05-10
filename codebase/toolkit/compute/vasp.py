@@ -1,7 +1,7 @@
 import subprocess
 import ase, ase.io
 
-from codebase.toolkit.common import template
+from codebase.toolkit.utils import template
 
 POTCAR_PATH = "/home/xzhang1/src/VASP_PSP/potpaw_PBE.54/"
 

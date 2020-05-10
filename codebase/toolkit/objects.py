@@ -38,9 +38,9 @@ class Struct(object):
     XS : pandas.DataFrame(columns=(X,Y,Z,S))
         Cartesian coordinates and chemical symbols
     """
-    def __init__(self):
-        self.A = None
-        self.XS = None
+    def __init__(self, A, XS):
+        self.A = A
+        self.XS = XS
 
     @property
     def stoichiometry(self):

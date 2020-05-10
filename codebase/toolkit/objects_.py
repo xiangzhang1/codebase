@@ -27,9 +27,10 @@ def exec_shorthand(text, d):
                 d[l] = r
 
 def axs_to_struct(A, X, S):
-    struct = Struct()
-    struct.A = A
-    struct.XS = pd.DataFrame(X, columns=('X','Y','Z')).join(
+    XS = pd.DataFrame(X, columns=('X','Y','Z')).join(
         pd.Series(S, name='S')
     )
-    return struct
+    return Struct(A=A, XS=XS)
+
+def stoichiometry(struct):
+    return
