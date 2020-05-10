@@ -2,16 +2,19 @@ import ase, ase.io
 from codebase.toolkit.just_enough_functions.barebones import axs_to_struct
 
 def _atoms_to_struct(atoms):
-    A = atoms.get_cell()
-    X = atoms.get_positions()
-    S = atoms.get_chemical_symbols()
-    return axs_to_struct(A=A, X=X, S=S)
+    return axs_to_struct(
+        A = atoms.get_cell(),
+        X = atoms.get_positions(),
+        S = atoms.get_chemical_symbols()
+    )
 
 def _struct_to_atoms(struct):
-    cell = struct.A
-    positions = struct.X[['X','Y','Z']].values
-    symbols = struct.X['S'].values
-    return ase.Atoms(symbols=symbols, cell=cell, positions=positions)
+
+    return ase.Atoms(
+        symbols = struct.XS['S'].values,
+        cell = struct.A,
+        positions = struct.XS[['X','Y','Z']].values
+    )
 
 def read(*args, **kwargs):
     """ase.io.read but to struct"""
