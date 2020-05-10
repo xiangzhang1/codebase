@@ -6,7 +6,7 @@ import numpy as np
 class StructMixin(object):
 
     @property
-    def fractional(self):
+    def fractional_coordinates(self):
         """
         Returns
         -------

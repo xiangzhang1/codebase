@@ -44,14 +44,14 @@ def struct2str(struct):
     A = array2string(struct.A)
     _ = struct.stoichiometry
     stoichiometry = ' '.join(_.keys()) + '\n' + ' '.join(map(str, _.values()))
-    FX = array2string(struct.FX)
+    fcoor = array2string(struct.fractional_coordinates)
     return (
         f'{label}\n'
         f'1.0\n'
         f'{A}\n'
         f'{stoichiometry}\n'
         f'Direct\n'
-        f'{FX}\n'
+        f'{fcoor}\n'
     )   # https://stackoverflow.com/q/45965007/6417519
 
 
