@@ -1,36 +1,8 @@
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
+from codebase.toolkit.common import array2string, dict2string
 from codebase.toolkit.optional.functions.struct import axs_to_struct
-
-
-def array2string(arr):
-    """
-    Parameters
-    ----------
-    arr : np.array((M, N))
-
-    Returns
-    -------
-    str
-        1.0000  2.0000  3.0000
-        4.0000  5.0000  6.0000
-    """
-    return pd.DataFrame(arr).to_string(header=False, index=False)
-
-
-def dict2string(d):
-    """
-    Parameters
-    ----------
-    d : OrderedDict or dict
-
-    Returns
-    -------
-    str
-        Pb55S38
-    """
-    return ''.join(k+str(v) for k,v in d.items())
 
 
 def struct2str(struct):

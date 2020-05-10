@@ -1,10 +1,10 @@
 import os
 import pandas as pd
 
+ASSETS = os.path.join(os.path.dirname(__file__), "../data/test.csv")
 
 periodic_table = pd.read_excel(
-    os.path.dirname(os.path.realpath(__file__)) +
-    '/periodic_table.xlsx'
+    os.path.join(ASSETS, "/tables/periodic_table.xlsx")
 )
 
 
@@ -31,3 +31,31 @@ def template(i, o, d):
                 i.read().format(**d)
             )
 
+
+def array2string(arr):
+    """
+    Parameters
+    ----------
+    arr : np.array((M, N))
+
+    Returns
+    -------
+    str
+        1.0000  2.0000  3.0000
+        4.0000  5.0000  6.0000
+    """
+    return pd.DataFrame(arr).to_string(header=False, index=False)
+
+
+def dict2string(d):
+    """
+    Parameters
+    ----------
+    d : OrderedDict or dict
+
+    Returns
+    -------
+    str
+        Pb55S38
+    """
+    return ''.join(k+str(v) for k,v in d.items())
