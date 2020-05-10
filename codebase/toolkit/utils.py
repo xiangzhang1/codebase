@@ -5,7 +5,7 @@ import pandas as pd
 LIB_PATH = os.path.dirname(os.path.realpath(__file__))
 POTCAR_PATH = "/home/xzhang1/src/VASP_PSP/potpaw_PBE.54/"
 
-def periodic_table_lookup(symbol, column, periodic_table = pd.read_excel(LIB_PATH + '/periodic_table.xlsx')):
+def periodic_table_lookup(symbol, column, periodic_table = pd.read_excel(LIB_PATH + '/data/periodic_table.xlsx')):
     """
     Args:
         symbol (str): 'Pb'
