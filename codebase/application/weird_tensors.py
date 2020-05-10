@@ -1,6 +1,7 @@
 from codebase.application.weird_pure_functions import _to_vasp, _to_slurm, _submit, _try_retrieve
 from codebase.framework.graph_parallel import Tensor, Op
 
+
 class Struct(Tensor):
     """
     Examples

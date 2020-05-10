@@ -1,5 +1,5 @@
 import os, subprocess
-from codebase.toolkit.utils import template
+from codebase.toolkit.common import template
 
 TEMPLATE_PATH = os.path.dirname(os.path.realpath(__file__)) + '../assets/templates/slurm'
 

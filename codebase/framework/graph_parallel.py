@@ -1,5 +1,6 @@
 # Define some random tensors, say a, b and c. Then link them with operation c=a+b.
 
+
 class Tensor:
     """Tensors contain values.
 
@@ -19,6 +20,7 @@ class Tensor:
         if self.value is None:
             self.value = self.op.run()
         return self.value
+
 
 class Op:
     """Ops link Tensors.

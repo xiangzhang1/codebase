@@ -1,16 +1,14 @@
-import pandas as pd
-from codebase.toolkit.objects import Struct
-
 def exec_file(path, d):
     # 文件用 # 分块
     for i in range(3):
         with open(path, "r") as file:
             for block in file.read().split('#'):
                 try:
-                    d.execute('#' + block)
+                    d.exec_('#' + block)
                 except:
                     if i == 2:
                         raise
+
 
 def exec_shorthand(text, d):
     # exec_shorthand(d, "insulator, qd, spin=fm")
@@ -25,12 +23,3 @@ def exec_shorthand(text, d):
                 d[l] = eval(r)
             except NameError:   # spin=fm
                 d[l] = r
-
-def axs_to_struct(A, X, S):
-    XS = pd.DataFrame(X, columns=('X','Y','Z')).join(
-        pd.Series(S, name='S')
-    )
-    return Struct(A=A, XS=XS)
-
-def stoichiometry(struct):
-    return

@@ -1,6 +1,7 @@
 import collections
 import pandas as pd
 
+
 class D(collections.MutableMapping):
     # emulates a dict
     def __init__(self, *args, **kwargs):
@@ -25,9 +26,10 @@ class D(collections.MutableMapping):
     def __len__(self):
         return len(self._dict)
 
-    def execute(self, expr):
-        # d.execute('isif=1')
+    def exec_(self, expr):
+        # d.exec_('isif=1')
         exec(expr, globals(), self)     # globals must be a dict
+
 
 class Struct(object):
     """
@@ -42,13 +44,3 @@ class Struct(object):
         self.A = A
         self.XS = XS
 
-    @property
-    def stoichiometry(self):
-        """
-        Returns
-        -------
-        OrderedDict
-            Stoichiometry sorted by symbol A-Z.
-        """
-        self.XS.sort_values(by='S', inplace=True)
-        return collections.OrderedDict(self.XS.S.value_counts(ascending=True))

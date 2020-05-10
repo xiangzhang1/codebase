@@ -1,11 +1,10 @@
 import subprocess
 import ase, ase.io
 
-from codebase.toolkit.utils import template
+from codebase.toolkit.common import template
 
 POTCAR_PATH = "/home/xzhang1/src/VASP_PSP/potpaw_PBE.54/"
 
-# ----------------------------------------------------------------------------------------------------------------------
 
 def to_vasp(d, struct):
     """Writes INCAR, POSCAR4, KPOINTS, POTCAR. Copies CHGCAR/WAVECAR.
@@ -35,5 +34,5 @@ def to_vasp(d, struct):
     for path in [d[k] for k in ['rho', 'rho0', 'phi0'] if k in d]:
         subprocess.run(f"rsync -a -h --info=progress2 {path} .", shell=True)
 
-# ----------------------------------------------------------------------------------------------------------------------
+
 

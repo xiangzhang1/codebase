@@ -32,15 +32,18 @@ def _to_vasp(d, struct, path, *control_dependencies):
     to_vasp(d, struct)
     return struct
 
+
 def _to_slurm(d, struct, path, *control_dependencies):
     os.chdir(path)
     to_slurm(d)
     return struct
 
+
 def _submit(struct, path, *control_dependencies):
     os.chdir(path)
     submit()
     return struct
+
 
 def _try_retrieve(d, struct, path, *control_dependencies):
     os.chdir(path)
