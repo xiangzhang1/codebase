@@ -6,25 +6,38 @@ import numpy as np
 class StructMixin(object):
 
     @property
-    def X(self):
-        """Cartesian coordinates."""
-        return self.XS[['X','Y','Z']].values
-
-    @property
-    def FX(self):
-        """Fractional coordinates."""
-        return np.dot(self.X, np.linalg.inv(self.A))
+    def fractional(self):
+        """
+        Returns
+        -------
+        np.array((3, N))
+        """
+        return np.dot(self.XS[['X','Y','Z']], np.linalg.inv(self.A))
 
     @property
     def unordered_stoichiometry(self):
-        """returns dict"""
+        """
+        Returns
+        -------
+        dict
+        """
         return self.XS.S.value_counts()
 
     @property
     def stoichiometry(self):
-        """For use in POSCAR5. Requires struct to be "blocky", i.e. [Pb, Pb, Pb, S, S, S, S]. Returns OrderedDict. """
+        """
+        For use in POSCAR5. Requires struct to be "blocky", i.e. [Pb, Pb, Pb, S, S, S, S].
+
+        Returns
+        -------
+        OrderedDict.
+        """
         stoichiometry = OrderedDict()
         for k, g in itertools.groupby(self.XS.S):
             assert k not in stoichiometry   # struct must be blocky, and stoichiometry ordered, or information loss.
             stoichiometry[k] = len(list(g))
         return stoichiometry
+
+    def sort(self):
+        """Makes struct blocky."""
+        self.XS.sort_values(by='S', inplace=True)
