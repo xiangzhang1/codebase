@@ -13,7 +13,7 @@ class StructMixin(object):
     @property
     def FX(self):
         """Fractional coordinates."""
-        return np.dot(self.X, )
+        return np.dot(self.X, np.linalg.inv(self.A))
 
     @property
     def unordered_stoichiometry(self):
