@@ -1,5 +1,5 @@
 import ase, ase.io
-from codebase.toolkit.just_enough_functions.barebones import axs_to_struct
+from codebase.toolkit.convenience import axs_to_struct
 
 def _atoms_to_struct(atoms):
     return axs_to_struct(

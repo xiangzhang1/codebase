@@ -1,6 +1,5 @@
 import pandas as pd
-from codebase.toolkit.utils import slugify
-from codebase.toolkit.barebones.objects import Struct
+from codebase.toolkit.objects import Struct
 
 def exec_file(path, d):
     # 文件用 # 分块
@@ -16,12 +15,12 @@ def exec_file(path, d):
 def exec_shorthand(text, d):
     # exec_shorthand(d, "insulator, qd, spin=fm")
     for _ in text.split(','):
-        _ = slugify(_)
+        _ = _.strip()
         if '=' not in _:        # insulator
             d[_] = None
         else:                   # kpoints=[1,1] or spin=fm
             l, r = _.split('=')
-            l, r = slugify(l), slugify(r)
+            l, r = l.strip(), r.strip()
             try:                # kpoints=[1,1]
                 d[l] = eval(r)
             except NameError:   # spin=fm

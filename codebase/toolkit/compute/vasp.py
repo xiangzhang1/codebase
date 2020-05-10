@@ -1,6 +1,9 @@
 import subprocess
 import ase, ase.io
-from codebase.toolkit.utils import POTCAR_PATH, LIB_PATH, periodic_table_lookup, template
+
+from codebase.toolkit.common import template
+
+POTCAR_PATH = "/home/xzhang1/src/VASP_PSP/potpaw_PBE.54/"
 
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -21,9 +24,9 @@ def to_vasp(d, struct):
                 file.write("{k} = {v}\n")
     #
     atoms = ase.Atoms(symbols=struct.XS.S, positions=struct.XS[['X', 'Y', 'Z']], cell=struct.A)
-    ase.io.write("POSCAR", images=atoms, format="vasp")
+    ase.io.write("POSCAR", images=atoms, format="compute")
     #
-    template(i = f"{LIB_PATH}/KPOINTS.{d['kpoints'][0]}", o = "KPOINTS", d = d)
+    template(i =f"{LIB_PATH}/KPOINTS.{d['kpoints'][0]}", o ="KPOINTS", d = d)
     #
     for symbol in struct.stoichiometry:
         potcar = POTCAR_PATH + periodic_table_lookup(symbol, "pot") + "/POTCAR"
@@ -34,40 +37,3 @@ def to_vasp(d, struct):
 
 # ----------------------------------------------------------------------------------------------------------------------
 
-def to_slurm(d):
-    """
-    Parameters
-    ----------
-    d: D
-        software: 'vasp'
-        cluster: 'nersc'
-    """
-    template(i = f"{LIB_PATH}/submit.{d['software']}.{d['cluster']}", o = "submit", d = d)
-    template(i = f"{LIB_PATH}/job.{d['software']}.{d['cluster']}", o = "job", d = d)
-
-def submit():
-    subprocess.run("bash submit", shell=True)
-
-def is_complete(d):
-    template(i=f"{LIB_PATH}/is_complete.{d['cluster']}", o="is_complete", d = d)
-    return eval(subprocess.check_output("bash is_complete", shell=True))
-
-def retrieve(d):
-    template(i=f"{LIB_PATH}/retrieve.{d['cluster']}", o="retrieve", d = d)
-    subprocess.run("bash retrieve", shell=True)
-
-class Pending(Exception):
-    pass
-
-def try_retrieve(d):
-    """For recursion.
-
-    Raises
-    ------
-    Pending
-        If `not is_complete()`.
-    """
-    if is_complete(d):
-        retrieve(d)
-    else:
-        raise Pending
