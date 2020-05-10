@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
+import textwrap     # PEP257: multiline string indentation sucks
 from codebase.toolkit.functions.struct import ordered_stoichiometry, axs_to_struct
 
 def array2string(arr):
@@ -44,13 +45,14 @@ def struct2str(struct):
     _ = ordered_stoichiometry(struct)
     stoichiometry = ' '.join(_.keys()) + '\n' + ' '.join(map(str, _.values()))
     X = array2string(struct.XS[['X','Y','Z']])
-    return f"""{label}
-    1.0
-    {A}
-    {stoichiometry}
-    Direct
-    {X}
-    """
+    return textwrap.dedent(f"""
+        {label}
+        1.0
+        {A}
+        {stoichiometry}
+        Direct
+        {X}
+    """)
 
 
 def write_poscar(filename, struct):
