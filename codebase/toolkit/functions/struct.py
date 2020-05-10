@@ -22,4 +22,5 @@ def ordered_stoichiometry(struct):
     for k, g in itertools.groupby(struct.XS.S):
         assert k not in stoichiometry   # struct must be blocky, or information loss may occur.
         stoichiometry[k] = len(list(g))
+    return stoichiometry
 
