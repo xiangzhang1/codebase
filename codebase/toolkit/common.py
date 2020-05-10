@@ -32,7 +32,7 @@ def template(i, o, d):
             )
 
 
-def array2string(arr):
+def array2str(arr):
     """
     Parameters
     ----------
@@ -47,7 +47,7 @@ def array2string(arr):
     return pd.DataFrame(arr).to_string(header=False, index=False)
 
 
-def dict2string(d):
+def dict2str(d):
     """
     Parameters
     ----------
