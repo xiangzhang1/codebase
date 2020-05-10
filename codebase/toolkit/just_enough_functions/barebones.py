@@ -1,4 +1,4 @@
-from codebase.toolkit import slugify
+from codebase.toolkit.utils import slugify
 from codebase.toolkit.barebones.objects import Struct
 
 def exec_file(path, d):

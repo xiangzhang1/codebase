@@ -5,7 +5,7 @@ Graph-parallel computation puts very stringent requirements on functions. We sat
 """
 
 import os
-from codebase.toolkit.barebones import to_vasp, to_slurm, submit, try_retrieve
+from codebase.toolkit.barebones.functions import to_vasp, to_slurm, submit, try_retrieve
 
 def _to_vasp(d, struct, path, *control_dependencies):
     """
