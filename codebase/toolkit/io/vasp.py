@@ -1,13 +1,13 @@
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
-from codebase.toolkit.functions.struct import ordered_stoichiometry, axs_to_struct
+from codebase.toolkit.optional.struct import axs_to_struct
 
 def array2string(arr):
     """
     Parameters
     ----------
-    arr : 2D np.array
+    arr : np.array((M, N))
 
     Returns
     -------
@@ -39,18 +39,18 @@ def struct2str(struct):
     str
         POSCAR5 string. This is very caveman: no selective dynamics, no cartesian. But ase writes POSCAR4, so uh...
     """
-    label = dict2string(ordered_stoichiometry(struct))
+    label = dict2string(struct.stoichiometry)
     A = array2string(struct.A)
-    _ = ordered_stoichiometry(struct)
+    _ = struct.stoichiometry
     stoichiometry = ' '.join(_.keys()) + '\n' + ' '.join(map(str, _.values()))
-    X = array2string(struct.XS[['X','Y','Z']])
+    FX = array2string(struct.FX)
     return (
         f'{label}\n'
         f'1.0\n'
         f'{A}\n'
         f'{stoichiometry}\n'
         f'Direct\n'
-        f'{X}\n'
+        f'{FX}\n'
     )   # https://stackoverflow.com/q/45965007/6417519
 
 

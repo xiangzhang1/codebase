@@ -1,5 +1,5 @@
 """
-Graph-parallel computation puts very stringent requirements on functions. We satisfy them here.
+Graph-parallel computation puts very stringent requirements on optional. We satisfy them here.
 
 "Weird": `_to_vasp` shouldn't have to return anything. We had it return struct, because it's gonna be useful for method chaining.
 """

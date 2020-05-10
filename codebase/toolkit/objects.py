@@ -1,8 +1,9 @@
 import collections
-import pandas as pd
+from codebase.toolkit.optional.d import DMixin
+from codebase.toolkit.optional.struct import StructMixin
 
 
-class D(collections.MutableMapping):
+class D(collections.MutableMapping, DMixin):
     # emulates a dict
     def __init__(self, *args, **kwargs):
         self._dict = dict()
@@ -31,7 +32,7 @@ class D(collections.MutableMapping):
         exec(expr, globals(), self)     # globals must be a dict
 
 
-class Struct(object):
+class Struct(StructMixin):
     """
     Attributes
     ----------
