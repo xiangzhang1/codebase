@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 from collections import OrderedDict
 from codebase.toolkit.common import array2str, dict2str
-from codebase.toolkit.optional.functions.struct import axs_to_struct
+from codebase.toolkit.objects import Struct
+from codebase.toolkit.optional.functions.struct import XS
 
 
 def struct2str(struct):
@@ -51,5 +52,5 @@ def read_poscar(filename):
     FX = np.float32([line.split()[:3] for line in lines[8:8 + sum(stoichiometry.values())]])
     X = np.dot(FX, A)
     S = [k for k,v in stoichiometry.items() for _ in range(v)]
-    return axs_to_struct(A, X, S)
+    return Struct(A, XS(X, S))
 

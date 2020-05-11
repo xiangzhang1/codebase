@@ -1,20 +1,23 @@
 import ase, ase.io
-from codebase.toolkit.optional.functions.struct import axs_to_struct
+from codebase.toolkit.objects import Struct
+from codebase.toolkit.optional.functions.struct import XS
 
 
 def _atoms_to_struct(atoms):
-    return axs_to_struct(
-        A = atoms.get_cell(),
-        X = atoms.get_positions(),
-        S = atoms.get_chemical_symbols()
+    return Struct(
+        A=atoms.get_cell(),
+        XS=XS(
+            X=atoms.get_positions(),
+            S=atoms.get_chemical_symbols()
+        )
     )
 
 
 def _struct_to_atoms(struct):
     return ase.Atoms(
-        symbols = struct.XS['S'].values,
-        cell = struct.A,
-        positions = struct.XS[['X','Y','Z']].values
+        symbols=struct.XS['S'].values,
+        cell=struct.A,
+        positions=struct.XS[['X', 'Y', 'Z']].values
     )
 
 
