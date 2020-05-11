@@ -28,12 +28,12 @@ def struct2str(struct):
     )   # https://stackoverflow.com/q/45965007/6417519
 
 
-def write_poscar(filename, struct):
+def struct2poscar(filename, struct):
     with open(filename, 'w') as f:
         f.write(struct2str(struct))
 
 
-def read_poscar(filename):
+def poscar2struct(filename):
     """
     Parameters
     ----------
