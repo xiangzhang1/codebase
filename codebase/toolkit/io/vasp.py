@@ -11,7 +11,11 @@ def struct2str(struct):
     Returns
     -------
     str
-        POSCAR5 string. Very caveman: no selective dynamics, no cartesian. But ase writes POSCAR4, so uh...
+        POSCAR5 string
+
+    Note
+    ----
+    Limited functionality. Does not support no selective dynamics, no cartesian.
     """
     label = dict2str(struct.stoichiometry)
     A = array2str(struct.A)

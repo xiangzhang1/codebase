@@ -28,6 +28,10 @@ def read(*args, **kwargs):
 
 
 def write(filename, struct, *args, **kwargs):
-    """ase.io.write but from struct"""
+    """
+    ase.io.write but from struct
+
+    Writes POSCAR4.
+    """
     atoms = _struct_to_atoms(struct)
     return ase.io.write(filename, atoms, *args, **kwargs)
