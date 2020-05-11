@@ -11,7 +11,7 @@ def struct2str(struct):
     Returns
     -------
     str
-        POSCAR5 string. This is very caveman: no selective dynamics, no cartesian. But ase writes POSCAR4, so uh...
+        POSCAR5 string. Very caveman: no selective dynamics, no cartesian. But ase writes POSCAR4, so uh...
     """
     label = dict2str(struct.stoichiometry)
     A = array2str(struct.A)
@@ -28,19 +28,24 @@ def struct2str(struct):
     )   # https://stackoverflow.com/q/45965007/6417519
 
 
-def struct2poscar(filename, struct):
-    with open(filename, 'w') as f:
-        f.write(struct2str(struct))
-
-
-def poscar2struct(filename):
+def struct2poscar(struct, poscar):
     """
     Parameters
     ----------
-    filename
-        POSCAR5. This is very caveman: no selective dynamics, no cartesian. But it preserves X order.
+    struct : Struct
+    poscar : str, path
     """
-    with open(filename, 'r') as f:
+    with open(poscar, 'w') as f:
+        f.write(struct2str(struct))
+
+
+def poscar2struct(poscar):
+    """
+    Parameters
+    ----------
+    poscar : str, path
+    """
+    with open(poscar, 'r') as f:
         lines = f.readlines()                                   # PbS
     scaling = float(lines[1].strip())                           # 1.0
     A = np.float_([line.split() for line in lines[2:5]])        # 3 0 0         # yes, np.float_([]) is necessary
