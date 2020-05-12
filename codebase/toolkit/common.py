@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import dill
 
 ASSETS = os.path.join(os.path.dirname(__file__), "assets/")
 
@@ -59,3 +60,13 @@ def dict2str(d):
         Pb55S38
     """
     return ''.join(k+str(v) for k,v in d.items())
+
+
+def obj2dill(obj, filename):
+    with open(filename, 'wb') as file:
+        dill.dump(obj, file)
+
+
+def dill2obj(filename):
+    with open(filename, 'rb') as file:
+        return dill.load(file)
