@@ -12,7 +12,7 @@ def to_vasp(d, struct):
     Parameters
     ----------
     d : D
-        cluster: 'dellpc'
+        cluster: 'knl'
     struct : Struct
     """
     d.exec_file(f"{RULES}/vasp.py")
