@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH -N {nnode}
+#SBATCH -C knl
+#SBATCH -q {queue}
+#SBATCH -t 48:00:00
+#SBATCH -o output
+#SBATCH -e error
+#SBATCH -J {stoichiometry}
+
+module load vasp/20181030-knl
+export OMP_NUM_THREADS=4
+
+# launching 1 task every 4 cores (16 CPUs)
+srun -n{ntask} -c16 --cpu_bind=cores vasp_gam

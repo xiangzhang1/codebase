@@ -21,4 +21,4 @@ PREC = Normal
 LWAVE = .FALSE.
 LORBIT = 11
 
-# NCORE = 
+NCORE = {corepernode}

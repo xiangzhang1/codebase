@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH --nodes={nnode}		# Request one node
+#SBATCH --ntasks-per-node={taskpernode}		# One node is 32 physical cores
+#SBATCH -p nodes		# Run on the default SLURM partition
+#SBATCH -o output
+#SBATCH -e error
+#SBATCH --time 48:00:00		# Max walltime is 48 hours
+#SBATCH --export=ALL		# Propagate all environment variables
+#SBATCH --job-name={stoichiometry}
+
+module purge
+module load intel
+
+# These are settings related to IntelMPI:
+# 	shared-memory for intra-node communcation
+# 	OpenFabrics Interface with the psm2 lib for inter-node communcation through OmniPath
+export I_MPI_FABRICS=shm:ofi
+export I_MPI_OFI_PROVIDER=psm2
+
+mpirun -np {ntask} /opt/vasp.5.4.4.16052018/bin/vasp_gam

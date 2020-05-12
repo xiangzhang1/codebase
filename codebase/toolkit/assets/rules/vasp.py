@@ -1,0 +1,14 @@
+taskpernode = {
+    'comet': 24,
+    'dellpc': 16,
+    'eccle': 32,
+    'haswell': 32,
+    'irmik': 12,
+    'knl': 16,  # OpenMP MPI hybrid, refer to training pptx, I've absolutely no idea,
+    'nanaimo': 24
+}[cluster]
+
+if cluster == 'dellpc':
+    nnode = 1
+
+ntask = taskpernode * nnode

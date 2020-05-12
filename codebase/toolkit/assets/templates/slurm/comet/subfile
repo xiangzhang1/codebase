@@ -1,0 +1,12 @@
+#!/bin/bash
+#SBATCH --nodes={nnode}
+#SBATCH --ntasks-per-node={taskpernode}
+#SBATCH --partition=regular
+#SBATCH -t 48:00:00
+#SBATCH --output=output
+#SBATCH --error=error
+#SBATCH --export=ALL
+#SBATCH --job-name={stoichiometry}
+
+module load vasp
+mpirun -np {ntask} vasp_gam

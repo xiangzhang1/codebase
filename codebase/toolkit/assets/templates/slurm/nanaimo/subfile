@@ -1,0 +1,17 @@
+#!/bin/bash
+#SBATCH --nodes={nnode}                  # Request 2 nodes
+#SBATCH --ntasks-per-node={taskpernode}
+#SBATCH -t 48:00:00                 # Request 2 hours in walltime.
+#SBATCH -o output                    # output file
+#SBATCH -e error                      # error file
+#SBATCH --export=ALL
+#SBATCH --job-name={stoichiometry}
+
+# Load environment modules
+. /usr/share/Modules/init/bash
+
+module purge
+module load intel
+module load impi
+
+mpirun -np {ntask} /opt/vasp.5.4.4.16052018/bin/vasp_gam

@@ -12,10 +12,11 @@ def to_vasp(d, struct):
     Parameters
     ----------
     d : D
-        cluster: 'knl'
+        cluster: 'dellpc'
     struct : Struct
     """
-    d.exec_file(f"{RULES}/vasp.py")
+    with open (f"{RULES}/vasp.py") as rules:
+        exec(rules.read(), globals(), d)
 
     template(
         i=f"{TEMPLATES}/INCAR",
@@ -27,7 +28,7 @@ def to_vasp(d, struct):
 
     copy(f"{TEMPLATES}/KPOINTS", "KPOINTS")
 
-    copy(f"{TEMPLATES/POTCAR}", "POTCAR")
+    copy(f"{TEMPLATES}/POTCAR", "POTCAR")
 
 
 def to_slurm(d, struct):
@@ -41,15 +42,16 @@ def to_slurm(d, struct):
     struct : Struct
     """
     d['stoichiometry'] = dict2str(struct.stoichiometry)
+    cluster = d['cluster']
 
     template(
-        i=f"{TEMPLATES}/subfile",
+        i=f"{TEMPLATES}/{cluster}/subfile",
         o="INCAR",
         d=d
     )
 
     template(
-        i=f"{TEMPLATES}/wrapper",
+        i=f"{TEMPLATES}/{cluster}/wrapper",
         o="INCAR",
         d=d
     )
