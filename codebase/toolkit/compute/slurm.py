@@ -1,7 +1,7 @@
 import os, subprocess
 from codebase.toolkit.common import template
 
-TEMPLATE_PATH = os.path.dirname(os.path.realpath(__file__)) + '../assets/templates/slurm'
+TEMPLATES = os.path.dirname(os.path.realpath(__file__)) + '../assets/templates/slurm'
 
 def to_slurm(d):
     """
@@ -11,8 +11,8 @@ def to_slurm(d):
         software: 'compute'
         cluster: 'nersc'
     """
-    template(i = f"{TEMPLATE_PATH}/submit.{d['software']}.{d['cluster']}", o = "submit", d = d)
-    template(i = f"{TEMPLATE_PATH}/job.{d['software']}.{d['cluster']}", o = "job", d = d)
+    template(i = f"{TEMPLATES}/submit.{d['software']}.{d['cluster']}", o ="submit", d = d)
+    template(i = f"{TEMPLATES}/job.{d['software']}.{d['cluster']}", o ="job", d = d)
 
 
 def submit():
@@ -20,12 +20,12 @@ def submit():
 
 
 def is_complete(d):
-    template(i=f"{TEMPLATE_PATH}/is_complete.{d['cluster']}", o="is_complete", d = d)
+    template(i=f"{TEMPLATES}/is_complete.{d['cluster']}", o="is_complete", d = d)
     return eval(subprocess.check_output("bash is_complete", shell=True))
 
 
 def retrieve(d):
-    template(i=f"{TEMPLATE_PATH}/retrieve.{d['cluster']}", o="retrieve", d = d)
+    template(i=f"{TEMPLATES}/retrieve.{d['cluster']}", o="retrieve", d = d)
     subprocess.run("bash retrieve", shell=True)
 
 

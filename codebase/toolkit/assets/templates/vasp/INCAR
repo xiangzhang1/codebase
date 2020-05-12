@@ -1,0 +1,24 @@
+# mode
+ISTART = 0
+ICHARG = 2
+
+ISIF = 2
+IBRION = 2
+NSW = 1000
+EDIFF = 1E-5
+EDIFFG = -0.02
+ISYM = 0
+
+# dft
+ENCUT = 400
+ISMEAR = 0
+SIGMA = 0.01
+ISPIN = 2
+LREAL = Auto
+PREC = Normal
+
+# behavior
+LWAVE = .FALSE.
+LORBIT = 11
+
+# NCORE = 
