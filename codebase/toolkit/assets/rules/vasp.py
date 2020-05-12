@@ -1,3 +1,5 @@
+software = 'vasp'
+
 taskpernode = {
     'comet': 24,
     'dellpc': 16,

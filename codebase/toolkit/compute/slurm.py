@@ -1,16 +1,21 @@
 import os, subprocess
-from codebase.toolkit.common import template
+from codebase.toolkit.common import template, dict2str
 
 TEMPLATES = os.path.dirname(os.path.realpath(__file__)) + '../assets/templates/slurm'
 
-def to_slurm(d):
+
+def to_slurm(d, struct):
     """
     Parameters
     ----------
-    d: D
-        software: 'compute'
-        cluster: 'nersc'
+    d : D
+        software: 'vasp'
+        cluster: 'knl'
+        queue: 'regular'
+        nnode: 4
+    struct : Struct
     """
+    d['stoichiometry'] = dict2str(struct.stoichiometry)
     template(i = f"{TEMPLATES}/submit.{d['software']}.{d['cluster']}", o ="submit", d = d)
     template(i = f"{TEMPLATES}/job.{d['software']}.{d['cluster']}", o ="job", d = d)
 

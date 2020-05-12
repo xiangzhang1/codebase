@@ -35,7 +35,7 @@ def _to_vasp(d, struct, path, *control_dependencies):
 
 def _to_slurm(d, struct, path, *control_dependencies):
     os.chdir(path)
-    to_slurm(d)
+    to_slurm(d, struct)
     return struct
 
 

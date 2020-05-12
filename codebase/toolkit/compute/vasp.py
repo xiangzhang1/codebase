@@ -44,13 +44,13 @@ def to_slurm(d, struct):
     cluster = d['cluster']
 
     template(
-        i=f"{TEMPLATES}/{cluster}/subfile",
+        i=f"{TEMPLATES}/slurm/{cluster}/subfile",
         o="INCAR",
         d=d
     )
 
     template(
-        i=f"{TEMPLATES}/{cluster}/wrapper",
+        i=f"{TEMPLATES}/slurm/{cluster}/wrapper",
         o="INCAR",
         d=d
     )
