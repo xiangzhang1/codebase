@@ -3,8 +3,8 @@ from shutil import copy
 from codebase.toolkit.common import template, dict2str
 from codebase.toolkit.io.vasp import struct2poscar
 
-RULES = os.path.dirname(os.path.realpath(__file__)) + '../assets/rules'
-TEMPLATES = os.path.dirname(os.path.realpath(__file__)) + '../assets/templates/vasp'
+RULES = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../assets/rules')
+TEMPLATES = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../assets/templates/vasp')
 
 
 def to_vasp(d, struct):

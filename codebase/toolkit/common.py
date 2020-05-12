@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import dill
 
-ASSETS = os.path.join(os.path.dirname(__file__), "assets/")
+ASSETS = os.path.join(os.path.dirname(__file__), "assets")
 
 periodic_table = pd.read_excel(
     os.path.join(ASSETS, "tables/periodic_table.xlsx")

@@ -1,7 +1,7 @@
 import os, subprocess
 from codebase.toolkit.common import template, dict2str
 
-TEMPLATES = os.path.dirname(os.path.realpath(__file__)) + '../assets/templates/slurm'
+TEMPLATES = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../assets/templates/slurm')
 
 
 def to_slurm(d, struct):
