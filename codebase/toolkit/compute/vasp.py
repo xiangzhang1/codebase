@@ -15,8 +15,7 @@ def to_vasp(d, struct):
         cluster: 'dellpc'
     struct : Struct
     """
-    with open (f"{RULES}/vasp.py") as rules:
-        exec(rules.read(), globals(), d)
+    d.exec_file(f"{RULES}/vasp.py")
 
     template(
         i=f"{TEMPLATES}/INCAR",

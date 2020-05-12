@@ -1,8 +1,9 @@
 import collections
+from codebase.toolkit.optional.mixins.d import DMixin
 from codebase.toolkit.optional.mixins.struct import StructMixin
 
 
-class D(collections.MutableMapping):
+class D(collections.MutableMapping, DMixin):
     # emulates a dict
     def __init__(self, *args, **kwargs):
         self._dict = dict()
