@@ -20,8 +20,6 @@ def to_vasp(d, struct):
         cluster: 'knl'
     struct : Struct
     """
-    d.exec_file(f"{RULES}/vasp.py")
-
     template(
         i=f"{TEMPLATES}/INCAR",
         o="INCAR",
