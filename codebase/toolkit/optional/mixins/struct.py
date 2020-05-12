@@ -39,10 +39,6 @@ class StructMixin(object):
             stoichiometry[k] = len(list(g))
         return stoichiometry
 
-    @property
-    def str_stoichiometry(self):
-        return dict2str(self.stoichiometry)
-
     def sort(self):
         """Makes struct blocky."""
         self.XS.sort_values(by='S', inplace=True)
