@@ -15,7 +15,6 @@ def to_slurm(d, struct):
         nnode: 4
     struct : Struct
     """
-    d['stoichiometry'] = dict2str(struct.stoichiometry)
     template(i = f"{TEMPLATES}/submit.{d['software']}.{d['cluster']}", o ="submit", d = d)
     template(i = f"{TEMPLATES}/job.{d['software']}.{d['cluster']}", o ="job", d = d)
 
