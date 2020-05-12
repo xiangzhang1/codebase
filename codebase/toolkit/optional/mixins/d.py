@@ -7,7 +7,7 @@ class DMixin(object):
 
     def exec_file(self, filename):
         with open(filename) as rules:
-            exec(rules.read(), globals(), d)
+            exec(rules.read(), globals(), self)
 
     def exec_shorthand(text, self):
         # exec_shorthand(d, "insulator, qd, spin=fm")
