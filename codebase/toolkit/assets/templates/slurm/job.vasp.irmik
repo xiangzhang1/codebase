@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --nodes={nnode}                  # Request 2 nodes
 #SBATCH -p nodes
-#SBATCH -t 48:00:00                 # Request 12 hours in walltime.
+#SBATCH -t 480:00:00                 # Request 12 hours in walltime.
 #SBATCH -o output                    # output file
 #SBATCH -e error                      # error file
 #SBATCH --ntasks-per-node={taskpernode}
