@@ -19,7 +19,7 @@ def to_vasp(d, struct):
         d=d
     )
 
-    struct2poscar(struct, 'POSCAR')
+    struct2poscar(struct, "POSCAR")
 
     copy(f"{TEMPLATES}/KPOINTS", "KPOINTS")
 
