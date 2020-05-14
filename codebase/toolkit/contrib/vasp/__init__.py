@@ -3,13 +3,13 @@ from shutil import copy
 from codebase.toolkit.common import template, dict2str
 from codebase.toolkit.io.vasp import struct2poscar
 
-RULES = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../assets/rules')
-TEMPLATES = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../assets/templates/vasp')
+DIR = os.path.realpath(__file__)
+TEMPLATES = os.path.join(DIR, 'templates')
 
 
 def expand(d, struct):
     d['stoichiometry'] = dict2str(struct.stoichiometry)
-    d.exec_file(f"{RULES}/vasp.py")
+    d.exec_file(f"{DIR}/rules.py")
 
 
 def to_vasp(d, struct):

@@ -5,16 +5,16 @@ Graph-parallel computation puts very stringent requirements on optional. We sati
 """
 
 import os
-from codebase.toolkit.compute.vasp import to_vasp
-from codebase.toolkit.compute.slurm import to_slurm, submit, try_retrieve
+from codebase.toolkit.contrib.vasp import to_vasp
+from codebase.toolkit.contrib.slurm import to_slurm, submit, try_retrieve
 
 
 def _to_vasp(d, struct, path, *control_dependencies):
     """
     Parameters
     ----------
-    d : toolkit.compute.objects.D
-    struct : toolkit.compute.objects.Struct
+    d : toolkit.contrib.objects.D
+    struct : toolkit.contrib.objects.Struct
     path : str
         `os.chdir(); op()` isn't pure. Instead, specify path for every function.
     control_dependencies : list of PrimitiveType
@@ -22,7 +22,7 @@ def _to_vasp(d, struct, path, *control_dependencies):
 
     Returns
     -------
-    toolkit.compute.objects.Struct
+    toolkit.contrib.objects.Struct
         Exactly the same input struct.
 
     Example:

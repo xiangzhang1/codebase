@@ -6,15 +6,15 @@ class Struct(Tensor):
     """
     Examples
     --------
-import codebase.toolkit.compute.slurm    >>> codebase.toolkit.compute.slurm.retrieve().get_contcar().set_d()...
+import codebase.toolkit.contrib.templates    >>> codebase.toolkit.contrib.templates.retrieve().get_contcar().set_d()...
 
     Attributes
     ----------
-    d : toolkit.compute.objects.D
+    d : toolkit.contrib.objects.D
         Cached. Temporary.
     path : str
         Cached. Temporary.
-    value : toolkit.compute.objects.Struct
+    value : toolkit.contrib.objects.Struct
         Yes. It's intended to house a `Struct`.
     """
 
@@ -27,7 +27,7 @@ import codebase.toolkit.compute.slurm    >>> codebase.toolkit.compute.slurm.retr
         return self
 
     def next_satellite(self):
-        """`self.ns().ns().ns()` makes a chain of identical Tensors whose `value` attributes all point to the same `toolkit.compute.objects.Struct`."""
+        """`self.ns().ns().ns()` makes a chain of identical Tensors whose `value` attributes all point to the same `toolkit.contrib.objects.Struct`."""
         return Struct(value=self.value).cache_d(self.d).cache_path(self.path)
 
     def to_vasp(self):
