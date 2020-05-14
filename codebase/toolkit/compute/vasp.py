@@ -13,24 +13,17 @@ def expand(d, struct):
 
 
 def to_vasp(d, struct):
-    """
-    Parameters
-    ----------
-    d : D
-        cluster: 'knl'
-    struct : Struct
-    """
     template(
-        i=f"{TEMPLATES}/INCAR",
+        i=f"{TEMPLATES}/iter_111/INCAR",
         o="INCAR",
         d=d
     )
 
     struct2poscar(struct, 'POSCAR')
 
-    copy(f"{TEMPLATES}/KPOINTS", "KPOINTS")
+    copy(f"{TEMPLATES}/iter_111/KPOINTS", "KPOINTS")
 
-    copy(f"{TEMPLATES}/POTCAR", "POTCAR")
+    copy(f"{TEMPLATES}/iter_111/POTCAR", "POTCAR")
 
 
 
