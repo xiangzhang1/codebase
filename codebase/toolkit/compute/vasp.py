@@ -9,21 +9,21 @@ TEMPLATES = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../assets
 
 def expand(d, struct):
     d['stoichiometry'] = dict2str(struct.stoichiometry)
-    d.exec_file(f"{RULES}/{d['software']}.py")
+    d.exec_file(f"{RULES}/vasp.py")
 
 
 def to_vasp(d, struct):
     template(
-        i=f"{TEMPLATES}/iter_111/INCAR",
+        i=f"{TEMPLATES}/INCAR",
         o="INCAR",
         d=d
     )
 
     struct2poscar(struct, 'POSCAR')
 
-    copy(f"{TEMPLATES}/iter_111/KPOINTS", "KPOINTS")
+    copy(f"{TEMPLATES}/KPOINTS", "KPOINTS")
 
-    copy(f"{TEMPLATES}/iter_111/POTCAR", "POTCAR")
+    copy(f"{TEMPLATES}/POTCAR", "POTCAR")
 
 
 
