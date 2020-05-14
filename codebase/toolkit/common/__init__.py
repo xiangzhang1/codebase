@@ -5,7 +5,7 @@ import dill
 periodic_table = pd.read_excel(
     os.path.join(
         os.path.dirname(__file__),
-        "tables/periodic_table.xlsx"
+        "periodic_table.xlsx"
     )
 )
 
