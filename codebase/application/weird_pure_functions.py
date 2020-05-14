@@ -13,8 +13,8 @@ def _to_vasp(d, struct, path, *control_dependencies):
     """
     Parameters
     ----------
-    d : toolkit.contrib.objects.D
-    struct : toolkit.contrib.objects.Struct
+    d : toolkit.procedural.objects.D
+    struct : toolkit.procedural.objects.Struct
     path : str
         `os.chdir(); op()` isn't pure. Instead, specify path for every function.
     control_dependencies : list of PrimitiveType
@@ -22,7 +22,7 @@ def _to_vasp(d, struct, path, *control_dependencies):
 
     Returns
     -------
-    toolkit.contrib.objects.Struct
+    toolkit.procedural.objects.Struct
         Exactly the same input struct.
 
     Example:

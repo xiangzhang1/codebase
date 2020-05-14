@@ -28,7 +28,7 @@ class D(collections.MutableMapping, DMixin):
         return len(self._dict)
 
     def exec_(self, expr):
-        # d.exec_('isif=1')
+        # d.rules('isif=1')
         exec(expr, globals(), self)     # globals must be a dict
 
 
