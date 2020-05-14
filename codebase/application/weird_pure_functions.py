@@ -5,8 +5,8 @@ Graph-parallel computation puts very stringent requirements on optional. We sati
 """
 
 import os
-from codebase.toolkit.contrib.vasp import to_vasp
-from codebase.toolkit.contrib.slurm import to_slurm, submit, try_retrieve
+from codebase.contrib.vasp import to_vasp
+from codebase.contrib.slurm import to_slurm, submit, try_retrieve
 
 
 def _to_vasp(d, struct, path, *control_dependencies):
