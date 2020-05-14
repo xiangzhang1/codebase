@@ -3,10 +3,7 @@ import pandas as pd
 import dill
 
 periodic_table = pd.read_excel(
-    os.path.join(
-        os.path.dirname(__file__),
-        "periodic_table.xlsx"
-    )
+    os.path.join(os.path.dirname(__file__), "periodic_table.xlsx")
 )
 
 
