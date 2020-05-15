@@ -1,2 +1,5 @@
-cd {local}
-nohup bash job
+rsync -a --info=progress2 . {hostname}:{remote}
+ssh {hostname} <<EOF
+  cd {remote}
+  nohup bash job
+EOF

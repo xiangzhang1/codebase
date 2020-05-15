@@ -1,0 +1,3 @@
+ssh {hostname} >>state <<EOF
+  squeue -u xzhang1 -h -o "%j %T"
+EOF
