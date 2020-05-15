@@ -32,13 +32,13 @@ def to_vasp(d, struct):
     copy(f"{PREFIX}/POTCAR", "POTCAR")
 
 
-def to_slurm(d):
-    PREFIX = os.path.join(ASSETS, 'slurm')
-    template(i=f"{PREFIX}/job.{d['cluster']}", o="job", d=d)
+def to_job(d):
+    PREFIX = os.path.join(ASSETS, 'job')
+    template(i=f"{PREFIX}/job/{d['cluster']}", o="job", d=d)
 
 
 def submit(d):
-    cluster = 'cori' if d['cluster'] in ['knl', 'haswell'] else d['cluster'],
+    cluster = 'cori' if d['cluster'] in ['knl', 'haswell'] else d['cluster']
     subprocess.run(f"rsync", shell=True)
 
 
