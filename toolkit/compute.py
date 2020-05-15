@@ -1,11 +1,10 @@
 import os
+import subprocess
 from shutil import copy
 import random
 import string
-from toolkit.common import dict2str, template
+from toolkit.utils import dict2str, template, ASSETS
 from toolkit.io.vasp import struct2poscar
-
-ASSETS = os.path.join(os.path.dirname(__file__), 'assets')
 
 
 sample_d = {
@@ -36,33 +35,50 @@ def job(d):
     template(i=f"{PREFIX}/{d['cluster']}", o="job", d=d)
 
 
-def submit(d, struct):
-    # hostname, local, remote, job_name
+sample_jobdict = {
+    'hostname': 'cori',
+    'hosttype': 'slurm',
+    'local': '/home/xzhang1/run/final_journey/iter_111/outputs/Pb104S85',
+    'remote': '/global/cscratch1/sd/xzhang1/fj/400_8_knl/Pb140S85',
+    'job_name': 'Pb140S85'
+}
+
+
+def submit(jobdict):
+    PREFIX = os.path.join(ASSETS, 'submit')
+    template(i=f"{PREFIX}/{jobdict['hosttype']}", o="submit", d=jobdict)
+    subprocess.run("bash submit", shell=True)
+
+
+def autosubmit(d, struct):
+    # hostname, hosttype, local, remote, job_name
     hostname = d['cluster']
     if hostname in ['knl', 'haswell']:
         hostname = 'cori'
+    if hostname in ['comet', 'cori', 'eccle', 'irmik', 'nanaimo']:
+        hosttype = 'slurm'
+    elif hostname == 'localhost':
+        hosttype = 'localhost'
     local = os.getcwd()
     uid = dict2str(struct.stoichiometry) + '_' + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
     remote = uid
     if hostname == 'comet':
         remote = f"/oasis/scratch/comet/xzhang1/temp_project/{uid}"
-    if hostname == 'cori':
+    elif hostname == 'cori':
         remote = f"/global/cscratch1/sd/xzhang1/{uid}"
     job_name = uid
     # jobdict
     jobdict = {
         'hostname': hostname,
+        'hosttype': hosttype,
         'local': local,
         'remote': remote,
         'job_name': job_name
     }
     # submit
     PREFIX = os.path.join(ASSETS, 'submit')
-    if hostname in ['comet', 'cori', 'eccle', 'irmik', 'nanaimo']:
-        template(i=f"{PREFIX}/slurm", o="submit", d=jobdict)
-    elif hostname in ['dellpc']:
-        template(i=f"{PREFIX}/dellpc", o="submit", d=jobdict)
-    # subprocess.run("bash submit", shell=True)
+    template(i=f"{PREFIX}/{hosttype}", o="submit", d=jobdict)
+    subprocess.run("bash submit", shell=True)
 
 
 class Listener:
@@ -74,7 +90,7 @@ class Listener:
                  cluster           local              remote state
         job_name
         Pb140S85    cori  /home/xzhang1/  /global/cscratch1/   NaN
-        dellpc       NaN             NaN                 NaN   NaN
+        localhost       NaN             NaN                 NaN   NaN
     """
 
     def __init__(self):

@@ -1,6 +1,6 @@
 taskpernode = {
     'comet': 24,
-    'dellpc': 16,
+    'localhost': 16,
     'eccle': 32,
     'haswell': 32,
     'irmik': 12,
@@ -8,7 +8,7 @@ taskpernode = {
     'nanaimo': 24
 }[cluster]
 
-if cluster == 'dellpc':
+if cluster == 'localhost':
     nnode = 1
 
 ntask = taskpernode * nnode
