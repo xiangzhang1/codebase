@@ -20,24 +20,20 @@ class Listener:
     def __init__(self):
         self.jobs = pd.DataFrame(columns=['job_name', 'cluster', 'local', 'remote', 'state']).set_index('job_name')
 
-    def register(self, job_name, **details):
-        self.jobs.loc[job_name] = details
-
-    def squeue(self):
-        self.jobs.state = 'NOT_IN_SQUEUE'
+    def refresh(self):
         for cluster in self.jobs.cluster.unique():
-            subprocess.run(f"bash {ASSETS}/squeue.{cluster}") # generates squeue.output, columns=(NAME, STATE)
+            subprocess.run(f"bash {ASSETS}/refresh.{cluster}")
             self.jobs.update(
                 pd.read_csv('refresh.output', delim_whitespace=True)
-                  .rename({'NAME': 'job_name', 'STATE': 'state'})
+                  .rename(columns={'NAME': 'job_name', 'STATE': 'state'})
                   .set_index('job_name')
             )
 
     def retrieve(self):
+        self.refresh()
         for index, row in self.jobs.iterrows():
-            if row.state == 'PRESUMED_COMPLETE' and row.remote:
-                subprocess.run(
-                    f"rsync -a --info=progress2 {row.cluster}:{row.remote} {row.local}"
-                ) # careful trailing slash
+            if not row.state and row.remote:
+                subprocess.run(f"rsync -a --info=progress2 {row.cluster}:{row.remote} {row.local}")
+                self.jobs.drop(index, inplace=True)
 
 

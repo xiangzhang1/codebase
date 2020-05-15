@@ -1,5 +1,6 @@
 import os
 from shutil import copy
+import pandas as pd
 from codebase.toolkit.common import dict2str, template
 from codebase.toolkit.io.vasp import struct2poscar
 
@@ -12,8 +13,7 @@ sample_d = {
 ASSETS = os.path.join(os.path.dirname(__file__), 'assets')
 
 
-def exec_rules(d, struct):
-    d['stoichiometry'] = dict2str(struct.stoichiometry)
+def exec_(d):
     d.exec_file(f"{ASSETS}/rules.py")
 
 
@@ -31,9 +31,19 @@ def to_vasp(d, struct):
 
 def to_slurm(d):
     PREFIX = os.path.join(ASSETS, 'slurm')
-    template(i=f"{PREFIX}/submit.{d['cluster']}", o="submit", d=d)
     template(i=f"{PREFIX}/job.{d['cluster']}", o="job", d=d)
 
 
+def submit(d):
+
+
+
+def for_listener(d, listener):
+    listener.jobs.append(
+        pd.Series({
+            'cluster': 'cori' if d['cluster'] in ['knl', 'haswell'] else d['cluster'],
+            'local': os.getcwd()
+        }, name=d['job_name'])
+    )
 
 

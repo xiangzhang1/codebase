@@ -1,1 +1,0 @@
-nohup ./subfile 2>&1 >> run.log &
