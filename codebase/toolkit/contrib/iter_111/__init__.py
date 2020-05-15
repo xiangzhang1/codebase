@@ -17,10 +17,10 @@ ASSETS = os.path.join(os.path.dirname(__file__), 'assets')
 
 def prepare(d, struct):
     d['job_name'] = dict2str(struct.stoichiometry) + '_' + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
-    d.exec_file(f"{ASSETS}/d.py")
+    d.exec_file(f"{ASSETS}/rules.py")
 
 
-def to_vasp(d, struct):
+def vasp(d, struct):
     PREFIX = os.path.join(ASSETS, 'vasp')
     template(
         i=f"{PREFIX}/INCAR",
@@ -32,13 +32,16 @@ def to_vasp(d, struct):
     copy(f"{PREFIX}/POTCAR", "POTCAR")
 
 
-def to_job(d):
+def job(d):
     PREFIX = os.path.join(ASSETS, 'job')
     template(i=f"{PREFIX}/job/{d['cluster']}", o="job", d=d)
 
 
-def submit(d):
-    cluster = 'cori' if d['cluster'] in ['knl', 'haswell'] else d['cluster']
+def default_submit(d):
+    host = 'cori' if d['cluster'] in ['knl', 'haswell'] else d['cluster']
+    hosttype = {
+        ''
+    }
     subprocess.run(f"rsync", shell=True)
 
 

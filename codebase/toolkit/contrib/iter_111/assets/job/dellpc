@@ -1,1 +1,1 @@
-nohup mpiexec -n {ntask} /home/xzhang1/src/vasp.5.4.4/bin/vasp_gam
+mpiexec -n {ntask} /home/xzhang1/src/vasp.5.4.4/bin/vasp_gam
