@@ -26,6 +26,6 @@ def vasp(d, struct):
 
 
 def job(d):
-    template(i=f"{ASSETS}/job/{d['cluster']}", o="job", d=d)
+    template(i=f"{ASSETS}/sub_vasp_gam/{d['cluster']}", o="sub_vasp_gam", d=d)
 
 
