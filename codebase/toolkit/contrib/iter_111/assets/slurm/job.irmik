@@ -6,7 +6,7 @@
 #SBATCH -e error                      # error file
 #SBATCH --ntasks-per-node={taskpernode}
 #SBATCH --export=ALL
-#SBATCH --job-name={stoichiometry}
+#SBATCH --job-name={job_name}
 
 # Load environment modules
 . /usr/share/Modules/init/bash

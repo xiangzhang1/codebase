@@ -5,7 +5,7 @@
 #SBATCH -o output                    # output file
 #SBATCH -e error                      # error file
 #SBATCH --export=ALL
-#SBATCH --job-name={stoichiometry}
+#SBATCH --job-name={job_name}
 
 # Load environment modules
 . /usr/share/Modules/init/bash

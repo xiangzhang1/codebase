@@ -6,7 +6,7 @@
 #SBATCH -e error
 #SBATCH --time 48:00:00		# Max walltime is 48 hours
 #SBATCH --export=ALL		# Propagate all environment variables
-#SBATCH --job-name={stoichiometry}
+#SBATCH --job-name={job_name}
 
 module purge
 module load intel

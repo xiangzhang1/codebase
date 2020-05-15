@@ -6,7 +6,7 @@
 #SBATCH --output=output
 #SBATCH --error=error
 #SBATCH --export=ALL
-#SBATCH --job-name={stoichiometry}
+#SBATCH --job-name={job_name}
 
 module load vasp
 mpirun -np {ntask} vasp_gam
