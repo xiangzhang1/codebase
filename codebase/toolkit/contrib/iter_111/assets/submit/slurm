@@ -1,0 +1,5 @@
+rsync -a --info=progress2 . {hostname}:{remote}
+ssh {hostname} <<EOF
+  cd {remote}
+  sbatch -J {job_name} job
+EOF

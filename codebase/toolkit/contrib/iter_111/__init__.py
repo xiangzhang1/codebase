@@ -37,20 +37,18 @@ def job(d):
     template(i=f"{PREFIX}/{d['cluster']}", o="job", d=d)
 
 
-def auto_submit(d, struct):
+def submit(d, struct):
     # hostname, local, remote, job_name
-    if d['cluster'] in ['knl', 'haswell']:
+    hostname = d['cluster']
+    if hostname in ['knl', 'haswell']:
         hostname = 'cori'
-    else:
-        hostname = d['cluster']
     local = os.getcwd()
     uid = dict2str(struct.stoichiometry) + '_' + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
+    remote = uid
     if hostname == 'comet':
-        remote = f"/oasis/scratch/comet/xzhang1/temp_project/{uuid}"
-    elif hostname == 'cori':
-        remote = f"/global/cscratch1/sd/xzhang1/{uuid}"
-    else:
-        remote = uid
+        remote = f"/oasis/scratch/comet/xzhang1/temp_project/{uid}"
+    if hostname == 'cori':
+        remote = f"/global/cscratch1/sd/xzhang1/{uid}"
     job_name = uid
     # jobdict
     jobdict = {
@@ -63,5 +61,6 @@ def auto_submit(d, struct):
     PREFIX = os.path.join(ASSETS, 'submit')
     if hostname in ['comet', 'cori', 'eccle', 'irmik', 'nanaimo']:
         template(i=f"{PREFIX}/slurm", o="submit", d=jobdict)
-
-
+    elif hostname in ['dellpc']:
+        template(i=f"{PREFIX}/dellpc", o="submit", d=jobdict)
+    # subprocess.run("bash submit", shell=True)
