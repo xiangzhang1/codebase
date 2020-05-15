@@ -1,9 +1,8 @@
 import numpy as np
-import pandas as pd
 from collections import OrderedDict
-from codebase.toolkit.common import array2str, dict2str
-from codebase.toolkit.objects import Struct
-from codebase.toolkit.optional.functions.struct import XS
+from toolkit.common import array2str, dict2str
+from toolkit.objects import Struct
+from toolkit.optional.functions.struct import XS
 
 
 def struct2str(struct):

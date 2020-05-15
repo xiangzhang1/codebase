@@ -1,7 +1,6 @@
 import itertools
 from collections import OrderedDict
 import numpy as np
-from codebase.toolkit.common import dict2str
 
 
 class StructMixin(object):

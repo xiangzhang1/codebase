@@ -2,9 +2,8 @@ import os
 from shutil import copy
 import random
 import string
-import pandas as pd
-from codebase.toolkit.common import dict2str, template
-from codebase.toolkit.io.vasp import struct2poscar
+from toolkit.common import dict2str, template
+from toolkit.io.vasp import struct2poscar
 
 ASSETS = os.path.join(os.path.dirname(__file__), 'assets')
 
@@ -64,3 +63,35 @@ def submit(d, struct):
     elif hostname in ['dellpc']:
         template(i=f"{PREFIX}/dellpc", o="submit", d=jobdict)
     # subprocess.run("bash submit", shell=True)
+
+
+class Listener:
+    """
+    Attributes
+    ----------
+    jobs : pandas.DataFrame::
+
+                 cluster           local              remote state
+        job_name
+        Pb140S85    cori  /home/xzhang1/  /global/cscratch1/   NaN
+        dellpc       NaN             NaN                 NaN   NaN
+    """
+
+    def __init__(self):
+        self.jobs = pd.DataFrame(columns=['job_name', 'cluster', 'local', 'remote', 'state']).set_index('job_name')
+
+    def refresh(self):
+        for cluster in self.jobs.cluster.unique():
+            subprocess.run(f"bash {ASSETS}/refresh.{cluster}")
+            self.jobs.update(
+                pd.read_csv('refresh.output', delim_whitespace=True)
+                  .rename(columns={'NAME': 'job_name', 'STATE': 'state'})
+                  .set_index('job_name')
+            )
+
+    def retrieve(self):
+        self.refresh()
+        for index, row in self.jobs.iterrows():
+            if not row.state and row.remote:
+                subprocess.run(f"rsync -a --info=progress2 {row.cluster}:{row.remote} {row.local}")
+                self.jobs.drop(index, inplace=True)

@@ -1,6 +1,6 @@
 import ase, ase.io
-from codebase.toolkit.objects import Struct
-from codebase.toolkit.optional.functions.struct import XS
+from toolkit.objects import Struct
+from toolkit.optional.functions.struct import XS
 
 
 def _atoms_to_struct(atoms):
