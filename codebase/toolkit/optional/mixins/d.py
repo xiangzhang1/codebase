@@ -5,11 +5,11 @@ class DMixin(object):
     Funnily enough, the `objects` module imports the `optional` module.
     """
 
-    def exec_file(self, filename):
-        with open(filename) as rules:
-            exec(rules.read(), globals(), self)
+    def exec_file(self, file):
+        with open(file) as file:
+            exec(file.read(), globals(), self)
 
-    def exec_shorthand(text, self):
+    def exec_shorthand(self, text):
         # exec_shorthand(d, "insulator, qd, spin=fm")
         for _ in text.split(','):
             _ = _.strip()

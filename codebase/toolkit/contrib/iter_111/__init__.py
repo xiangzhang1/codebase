@@ -12,11 +12,12 @@ sample_d = {
 ASSETS = os.path.join(os.path.dirname(__file__), 'assets')
 
 
-def rules(d):
+def exec_rules(d, struct):
+    d['stoichiometry'] = dict2str(struct.stoichiometry)
     d.exec_file(f"{ASSETS}/rules.py")
 
 
-def vasp(d, struct):
+def to_vasp(d, struct):
     PREFIX = os.path.join(ASSETS, 'vasp')
     template(
         i=f"{PREFIX}/INCAR",
@@ -28,7 +29,11 @@ def vasp(d, struct):
     copy(f"{PREFIX}/POTCAR", "POTCAR")
 
 
-def slurm(d, struct):
+def to_slurm(d):
     PREFIX = os.path.join(ASSETS, 'slurm')
     template(i=f"{PREFIX}/submit.{d['cluster']}", o="submit", d=d)
     template(i=f"{PREFIX}/job.{d['cluster']}", o="job", d=d)
+
+
+
+
