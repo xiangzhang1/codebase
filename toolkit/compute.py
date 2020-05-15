@@ -3,6 +3,7 @@ import subprocess
 from shutil import copy
 import random
 import string
+import pandas as pd
 from toolkit.utils import dict2str, template, ASSETS
 from toolkit.io.vasp import struct2poscar
 
@@ -19,20 +20,18 @@ def exec_(d):
 
 
 def vasp(d, struct):
-    PREFIX = os.path.join(ASSETS, 'vasp')
     template(
-        i=f"{PREFIX}/INCAR",
+        i=f"{ASSETS}/vasp/INCAR",
         o="INCAR",
         d=d
     )
     struct2poscar(struct, "POSCAR")
-    copy(f"{PREFIX}/KPOINTS", "KPOINTS")
-    copy(f"{PREFIX}/POTCAR", "POTCAR")
+    copy(f"{ASSETS}/vasp/KPOINTS", "KPOINTS")
+    copy(f"{ASSETS}/vasp/POTCAR", "POTCAR")
 
 
 def job(d):
-    PREFIX = os.path.join(ASSETS, 'job')
-    template(i=f"{PREFIX}/{d['cluster']}", o="job", d=d)
+    template(i=f"{ASSETS}/job/{d['cluster']}", o="job", d=d)
 
 
 sample_jobdict = {
@@ -44,44 +43,34 @@ sample_jobdict = {
 }
 
 
+def auto_jobdict(cluster, uid_prefix=''):
+    cwd = os.getcwd()
+    uid = uid_prefix + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
+    template(i=f"{ASSETS}/jobdicts.csv", o="jobdict.csv", d=dict(cwd=cwd, uid=uid))
+    jobdicts = pd.read_csv('jobdicts.csv').set_index('cluster')
+    jobdict = jobdicts.loc[cluster]
+    return jobdict
+
+
 def submit(jobdict):
-    PREFIX = os.path.join(ASSETS, 'submit')
-    template(i=f"{PREFIX}/{jobdict['hosttype']}", o="submit", d=jobdict)
+    template(i=f"{ASSETS}/submit/{jobdict['hosttype']}", o="submit", d=jobdict)
     subprocess.run("bash submit", shell=True)
 
 
-def autosubmit(d, struct):
-    # hostname, hosttype, local, remote, job_name
-    hostname = d['cluster']
-    if hostname in ['knl', 'haswell']:
-        hostname = 'cori'
-    if hostname in ['comet', 'cori', 'eccle', 'irmik', 'nanaimo']:
-        hosttype = 'slurm'
-    elif hostname == 'localhost':
-        hosttype = 'localhost'
-    local = os.getcwd()
-    uid = dict2str(struct.stoichiometry) + '_' + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
-    remote = uid
-    if hostname == 'comet':
-        remote = f"/oasis/scratch/comet/xzhang1/temp_project/{uid}"
-    elif hostname == 'cori':
-        remote = f"/global/cscratch1/sd/xzhang1/{uid}"
-    job_name = uid
-    # jobdict
-    jobdict = {
-        'hostname': hostname,
-        'hosttype': hosttype,
-        'local': local,
-        'remote': remote,
-        'job_name': job_name
-    }
-    # submit
-    PREFIX = os.path.join(ASSETS, 'submit')
-    template(i=f"{PREFIX}/{hosttype}", o="submit", d=jobdict)
-    subprocess.run("bash submit", shell=True)
+class SlurmListener:
+
+    def __init__(self):
+        self.jobs = pd.DataFrame(columns=('hostname', 'hosttype', 'local', 'remote', 'job_name', 'state'))
+
+    def add(self, jobdict):
+        self.jobs.append(jobdict, ignore_index=True)
+
+    def status(self):
+
+    def fetch(self):
 
 
-class Listener:
+class Retriever:
     """
     Attributes
     ----------
@@ -90,7 +79,7 @@ class Listener:
                  cluster           local              remote state
         job_name
         Pb140S85    cori  /home/xzhang1/  /global/cscratch1/   NaN
-        localhost       NaN             NaN                 NaN   NaN
+        node       NaN             NaN                 NaN   NaN
     """
 
     def __init__(self):
@@ -111,3 +100,5 @@ class Listener:
             if not row.state and row.remote:
                 subprocess.run(f"rsync -a --info=progress2 {row.cluster}:{row.remote} {row.local}")
                 self.jobs.drop(index, inplace=True)
+
+

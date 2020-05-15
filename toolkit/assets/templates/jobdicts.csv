@@ -1,0 +1,8 @@
+﻿cluster,hostname,hosttype,local,remote,job_name
+comet,comet,slurm,{cwd},/oasis/scratch/comet/xzhang1/temp_project/{uid},{uid}
+eccle,eccle,slurm,{cwd},{uid},{uid}
+haswell,cori,slurm,{cwd},/global/cscratch1/sd/xzhang1/{uid},{uid}
+irmik,irmik,slurm,{cwd},{uid},{uid}
+knl,cori,slurm,{cwd},/global/cscratch1/sd/xzhang1/{uid},{uid}
+localhost,localhost,node,{cwd},{cwd},localhost
+nanaimo,nanaimo,slurm,{cwd},{uid},{uid}
