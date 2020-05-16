@@ -1,1 +1,7 @@
+# `ssh host command` doesn't read .bashrc environment variables
+source /opt/intel/parallel_studio_xe_2020.0.088/bin/psxevars.sh
+source /opt/intel/compilers_and_libraries_2020.0.166/linux/mpi/intel64/bin/mpivars.sh
+
+ulimit -s unlimited
+
 mpiexec -n {ntask} /home/xzhang1/src/vasp.5.4.4/bin/vasp_gam
