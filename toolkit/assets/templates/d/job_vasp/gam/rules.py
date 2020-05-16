@@ -8,7 +8,7 @@ taskpernode = {
     'nanaimo': 24
 }[cluster]
 
-if cluster == 'node':
+if cluster == 'localhost':
     nnode = 1
 
 ntask = taskpernode * nnode
