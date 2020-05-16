@@ -1,6 +1,6 @@
 from shutil import copy
 from toolkit.functions import exec_file
-from toolkit.io.json import load
+from toolkit.io.json import load, dump
 from toolkit.io.vasp import struct2poscar
 from toolkit.manager import dstruct2jobdict, submit
 from toolkit.utils import ASSETS, template
@@ -28,8 +28,12 @@ def job(d):
     template(i=f"{ASSETS}/templates/d/job_vasp/gam/d['cluster']", o="job", d=d)
 
 
-def get_manager():
+def load_manager():
     return load(f"{PROJECTS}/manager.json")
+
+
+def dump_manager(manager):
+    dump(manager, f"{PROJECTS}/manager.json")
 
 
 def manage(manager, d, struct):
