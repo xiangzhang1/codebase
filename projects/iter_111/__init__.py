@@ -19,7 +19,7 @@ def prepare(d):
 def vasp(d, struct):
     PREFIX = f"{ASSETS}/templates/d/vasp/pbs_qd_opt"
     template(i=f"{PREFIX}/INCAR", o="INCAR", d=d)
-    struct2poscar(struct)
+    struct2poscar(struct, 'POSCAR')
     copy(f"{PREFIX}/KPOINTS", "KPOINTS")
     copy(f"{PREFIX}/POTCAR", "POTCAR")
 
