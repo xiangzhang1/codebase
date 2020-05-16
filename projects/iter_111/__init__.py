@@ -1,15 +1,13 @@
 """
 Python-based file control.
 """
-import os
 from shutil import copy
 from toolkit.functions import exec_file
 from toolkit.io.json import load
 from toolkit.io.vasp import struct2poscar
 from toolkit.manager import dstruct2jobdict, submit
 from toolkit.utils import ASSETS, template
-
-PROJECTS = os.path.dirname(__file__)
+from projects import PROJECTS
 
 sample_d = {
     'cluster': str,
@@ -17,11 +15,11 @@ sample_d = {
 }
 
 
-def preprocess(d):
+def prepare(d):
     exec_file(f"{ASSETS}/templates/d/job_vasp/gam/rules.py", d)
 
 
-def to_vasp(d, struct):
+def vasp(d, struct):
     PREFIX = f"{ASSETS}/templates/d/vasp/pbs_qd_opt"
     template(i=f"{PREFIX}/INCAR", o="INCAR", d=d)
     struct2poscar(struct)
@@ -29,14 +27,15 @@ def to_vasp(d, struct):
     copy(f"{PREFIX}/POTCAR", "POTCAR")
 
 
-def to_slurm(d):
+def job(d):
     template(i=f"{ASSETS}/templates/d/job_vasp/gam/d['cluster']", o="job", d=d)
 
 
-manager = load(f"{PROJECTS}/manager.json")
+def get_manager():
+    return load(f"{PROJECTS}/manager.json")
 
 
-def manage_submit(d, struct):
+def manage(manager, d, struct):
     jobdict = dstruct2jobdict(d, struct)
     submit(jobdict)
     manager.register(jobdict)
