@@ -42,6 +42,8 @@ class Manager(object):
         self.jobs = self.jobs.append(jobdict, ignore_index=True)
 
     def refresh(self):
+        if self.jobs.empty:
+            return
         for _, job in self.jobs.groupby('hostname').first().reset_index().iterrows():
             template(i=f"{ASSETS}/templates/jobdict/refresh/{job.hosttype}", o="refresh", d=job.to_dict())
             subprocess.run("bash refresh", shell=True)
