@@ -1,5 +1,6 @@
 rsync -a --info=progress2 . {hostname}:{remote}
 ssh {hostname} <<EOF
   cd {remote}
-  nohup bash job &
+  nohup bash job 2>&1 >run.log &
+  # Be explicit about output. Nohup doesn't always produce nohup.log. An exception is inside ssh.
 EOF
