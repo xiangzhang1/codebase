@@ -39,7 +39,7 @@ class Manager(object):
         self.jobs = jobs
 
     def register(self, jobdict):
-        self.jobs.append(jobdict, ignore_index=True)
+        self.jobs = self.jobs.append(jobdict, ignore_index=True)
 
     def refresh(self):
         for _, job in self.jobs.groupby('hostname').first().reset_index().iterrows():
