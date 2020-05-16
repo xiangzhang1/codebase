@@ -1,7 +1,5 @@
 import os
-import uuid
 import pandas as pd
-import dill
 
 ASSETS = os.path.join(os.path.dirname(__file__), "assets")
 
@@ -12,9 +10,12 @@ periodic_table = pd.read_excel(
 
 def periodic_table_lookup(symbol, column):
     """
-    Args:
-        symbol (str): 'Pb'
-        column (str): 'pot_encut'
+    Parameters
+    ----------
+        symbol : str
+            'Pb'
+        column : str
+            'pot_encut'
     """
     return periodic_table.loc[periodic_table.symbol == symbol, column].values[0]
 
@@ -22,10 +23,13 @@ def periodic_table_lookup(symbol, column):
 def template(i, o, d):
     """i.format(d)
 
-    Args:
-        i (str): input file path
-        o （str): output file path
-        d (dict):
+    Parameters
+    ----------
+    i : str
+        input file path
+    o : str
+        output file path
+    d : dict
     """
     with open(i, "r") as i:
         with open(o, "w") as o:
@@ -53,7 +57,7 @@ def dict2str(d):
     """
     Parameters
     ----------
-    d : OrderedDict or dict
+    d : dict
 
     Returns
     -------
@@ -61,13 +65,3 @@ def dict2str(d):
         Pb55S38
     """
     return ''.join(k+str(v) for k,v in d.items())
-
-
-def obj2dill(obj, filename):
-    with open(filename, 'wb') as file:
-        dill.dump(obj, file)
-
-
-def dill2obj(filename):
-    with open(filename, 'rb') as file:
-        return dill.load(file)

@@ -1,6 +1,8 @@
 import ase, ase.io
-from toolkit.objects import Struct
-from toolkit.optional.functions.struct import XS
+
+import toolkit.functions
+from toolkit.struct import Struct
+from toolkit.functions import XS
 
 
 def _atoms_to_struct(atoms):
@@ -15,9 +17,9 @@ def _atoms_to_struct(atoms):
 
 def _struct_to_atoms(struct):
     return ase.Atoms(
-        symbols=struct.XS['S'].values,
+        symbols=toolkit.functions.XS['S'].values,
         cell=struct.A,
-        positions=struct.XS[['X', 'Y', 'Z']].values
+        positions=toolkit.functions.XS[['X', 'Y', 'Z']].values
     )
 
 
@@ -27,11 +29,11 @@ def read(*args, **kwargs):
     return _atoms_to_struct(atoms)
 
 
-def write(filename, struct, *args, **kwargs):
+def write(fname, struct, *args, **kwargs):
     """
     ase.io.write but from struct
 
     Writes POSCAR4.
     """
     atoms = _struct_to_atoms(struct)
-    return ase.io.write(filename, atoms, *args, **kwargs)
+    return ase.io.write(fname, atoms, *args, **kwargs)

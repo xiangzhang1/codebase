@@ -1,0 +1,3 @@
+`utils.template(i, o, d)`
+
+All keys in `requires.py` must be present, and `exec(rules, globals(), d)` must be run (which provides `provides.py`).

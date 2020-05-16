@@ -3,7 +3,18 @@ from collections import OrderedDict
 import numpy as np
 
 
-class StructMixin(object):
+class Struct(object):
+    """
+    Attributes
+    ----------
+    A : np.array((3,3)), or None
+        Unit cell
+    XS : pandas.DataFrame(columns=(X,Y,Z,S))
+        Cartesian coordinates and chemical symbols
+    """
+    def __init__(self, A, XS):
+        self.A = A
+        self.XS = XS
 
     @property
     def FX(self):
