@@ -1,3 +1,7 @@
+"""
+Python-based file control.
+"""
+
 from shutil import copy
 from toolkit.functions import exec_file
 from toolkit.io.json import load
