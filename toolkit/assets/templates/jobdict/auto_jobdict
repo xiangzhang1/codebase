@@ -4,5 +4,5 @@ eccle,eccle,slurm,{cwd},{uid},{uid}
 haswell,cori,slurm,{cwd},/global/cscratch1/sd/xzhang1/{uid},{uid}
 irmik,irmik,slurm,{cwd},{uid},{uid}
 knl,cori,slurm,{cwd},/global/cscratch1/sd/xzhang1/{uid},{uid}
-dellpc,dellpc,node,{cwd},{cwd},dellpc
+localhost,localhost,node,{cwd},{cwd},localhost
 nanaimo,nanaimo,slurm,{cwd},{uid},{uid}
