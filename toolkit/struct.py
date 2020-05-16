@@ -1,6 +1,7 @@
 import itertools
 from collections import OrderedDict
 import numpy as np
+from toolkit.utils import dict2str
 
 
 class Struct(object):
@@ -48,6 +49,10 @@ class Struct(object):
             assert k not in stoichiometry   # struct must be blocky, and stoichiometry ordered, or information loss.
             stoichiometry[k] = len(list(g))
         return stoichiometry
+
+    @property
+    def stoichiometry_str(self):
+        return dict2str(self.stoichiometry)
 
     def sort(self):
         """Makes struct blocky."""
