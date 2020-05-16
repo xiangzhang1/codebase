@@ -1,6 +1,3 @@
-"""
-Python-based file control.
-"""
 from shutil import copy
 from toolkit.functions import exec_file
 from toolkit.io.json import load
@@ -10,11 +7,8 @@ from toolkit.utils import ASSETS, template
 
 sample_d = {
     'cluster': str,
-    'queue': str,
     'nnode': int
 }
-
-manager = load(f"{ASSETS}/persistence/manager.json")
 
 
 def preprocess(d):
@@ -31,6 +25,9 @@ def to_vasp(d, struct):
 
 def to_slurm(d):
     template(i=f"{ASSETS}/templates/d/job_vasp/gam/d['cluster']", o="job", d=d)
+
+
+manager = load(f"{ASSETS}/persistence/manager.json")
 
 
 def manage(d, struct):
