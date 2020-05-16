@@ -25,7 +25,7 @@ def vasp(d, struct):
 
 
 def job(d):
-    template(i=f"{ASSETS}/templates/d/job_vasp/gam/d['cluster']", o="job", d=d)
+    template(i=f"{ASSETS}/templates/d/job_vasp/gam/{d['cluster']}", o="job", d=d)
 
 
 def load_manager():
