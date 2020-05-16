@@ -9,7 +9,7 @@ class Struct(object):
     ----------
     A : np.array((3,3)), or None
         Unit cell
-    XS : pandas.DataFrame(columns=(X,Y,Z,S))
+    XS : pandas.DataFrame(columns=('X','Y','Z','S'))
         Cartesian coordinates and chemical symbols
     """
     def __init__(self, A, XS):
@@ -23,7 +23,7 @@ class Struct(object):
         -------
         np.array((3, N))
         """
-        return np.dot(self.XS[['X','Y','Z']], np.linalg.inv(self.A))
+        return np.dot(self.XS[['X', 'Y', 'Z']], np.linalg.inv(self.A))
 
     @property
     def unordered_stoichiometry(self):
