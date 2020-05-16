@@ -1,6 +1,6 @@
 import numpy as np
 from collections import OrderedDict
-from toolkit.common import array2str, dict2str
+from toolkit.utils import array2str, dict2str
 from toolkit.struct import Struct
 from toolkit.functions import XS
 

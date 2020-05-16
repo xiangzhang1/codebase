@@ -34,12 +34,7 @@ def to_slurm(d):
 manager = load(f"{ASSETS}/persistence/manager.json")
 
 
-def manage(d, struct):
+def manage_submit(d, struct):
     jobdict = dstruct2jobdict(d, struct)
     submit(jobdict)
     manager.register(jobdict)
-
-
-manager.refresh()
-manager.jobs
-manager._retrieve()
