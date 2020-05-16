@@ -24,7 +24,7 @@ sample_jobdict = {
 
 
 def submit(jobdict):
-    template(i=f"{ASSETS}/submit/{jobdict['hosttype']}", o="submit", d=jobdict)
+    template(i=f"{ASSETS}/templates/jobdict/submit/{jobdict['hosttype']}", o="submit", d=jobdict)
     subprocess.run("bash submit", shell=True)
 
 
@@ -43,14 +43,14 @@ class Manager(object):
 
     def refresh(self):
         for _, job in self.jobs.groupby('hostname').first().reset_index().iterrows():
-            template(i=f"{ASSETS}/refresh/{job.hosttype}", o="refresh", d=job.to_dict())
+            template(i=f"{ASSETS}/templates/refresh/{job.hosttype}", o="refresh", d=job.to_dict())
             subprocess.run("bash refresh", shell=True)
         state = pd.read_csv("state", header=None, names=['job_name', 'state'], delim_whitespace=True)
         self.jobs = pd.merge(self.jobs.drop('state'), state, how='outer')
 
     def _retrieve(self):
         for _, job in self.jobs[self.jobs.state.isnull()].iterrows():
-            template(i=f"{ASSETS}/retrieve", o="retrieve", d=job.to_dict())
+            template(i=f"{ASSETS}/templates/jobdict/retrieve", o="retrieve", d=job.to_dict())
             subprocess.run(f"bash retrieve", shell=True)
 
     def retrieve(self):
@@ -66,8 +66,8 @@ What? Still here? You don't even want to manually specify remote_path etc.? Okay
 def jobdict(cluster, uid_prefix=''):
     cwd = os.getcwd()
     uid = uid_prefix + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
-    template(i=f"{ASSETS}/jobdict/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, uid=uid))
-    return pd.read_csv('assets/templates/jobdict/auto_jobdict').set_index('cluster').loc[cluster]
+    template(i=f"{ASSETS}/templates/jobdict/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, uid=uid))
+    return pd.read_csv('auto_jobdict').set_index('cluster').loc[cluster]
 
 
 def dstruct2jobdict(d, struct):
