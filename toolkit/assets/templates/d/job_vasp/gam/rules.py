@@ -1,6 +1,6 @@
 taskpernode = {
     'comet': 24,
-    'node': 16,
+    'localhost': 16,
     'eccle': 32,
     'haswell': 32,
     'irmik': 12,
