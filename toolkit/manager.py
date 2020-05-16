@@ -66,7 +66,7 @@ What? Still here? You don't even want to manually specify remote_path etc.? Okay
 def jobdict(cluster, uid_prefix=''):
     cwd = os.getcwd()
     uid = uid_prefix + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
-    template(i=f"{ASSETS}/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, uid=uid))
+    template(i=f"{ASSETS}/jobdict/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, uid=uid))
     return pd.read_csv('assets/templates/jobdict/auto_jobdict').set_index('cluster').loc[cluster]
 
 
