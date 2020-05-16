@@ -1,13 +1,15 @@
 """
 Python-based file control.
 """
-
+import os
 from shutil import copy
 from toolkit.functions import exec_file
 from toolkit.io.json import load
 from toolkit.io.vasp import struct2poscar
 from toolkit.manager import dstruct2jobdict, submit
 from toolkit.utils import ASSETS, template
+
+PROJECTS = os.path.dirname(__file__)
 
 sample_d = {
     'cluster': str,
@@ -31,7 +33,7 @@ def to_slurm(d):
     template(i=f"{ASSETS}/templates/d/job_vasp/gam/d['cluster']", o="job", d=d)
 
 
-manager = load(f"{ASSETS}/persistence/manager.json")
+manager = load(f"{PROJECTS}/manager.json")
 
 
 def manage_submit(d, struct):
