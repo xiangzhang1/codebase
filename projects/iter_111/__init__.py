@@ -4,7 +4,6 @@ from projects.iter_111.json import load, dump
 from toolkit.io.vasp import struct2poscar
 from toolkit.manager import dstruct2jobdict, submit
 from toolkit.utils import ASSETS, template
-from projects import PROJECTS
 
 sample_d = {
     'cluster': str,
@@ -28,20 +27,12 @@ def job(d):
     template(i=f"{ASSETS}/templates/d/job_vasp/gam/{d['cluster']}", o="job", d=d)
 
 
-def load_manager():
-    return load(f"{PROJECTS}/manager.json")
-
-
-def dump_manager(manager):
-    dump(manager, f"{PROJECTS}/manager.json")
-
-
-def autosubmit(manager, d, struct, struct_metadata):
+def manage(manager, d, struct, struct_metadata):
     jobdict = dstruct2jobdict(d, struct)
     submit(jobdict)
     manager.register(jobdict)
     dump({
-        'd': d,
+        'd': d,  # possible incompatibility due to upconverting from v0.1.0
         'struct': struct,
         'struct_metadata': struct_metadata,
         'jobdict': jobdict
