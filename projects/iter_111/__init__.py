@@ -36,12 +36,13 @@ def dump_manager(manager):
     dump(manager, f"{PROJECTS}/manager.json")
 
 
-def manage(manager, d, struct):
+def autosubmit(manager, d, struct, struct_metadata):
     jobdict = dstruct2jobdict(d, struct)
     submit(jobdict)
     manager.register(jobdict)
     dump({
-        'd': d, # or None for jobs before v0.2.0
+        'd': d,
         'struct': struct,
+        'struct_metadata': struct_metadata,
         'jobdict': jobdict
-    }, fname='d_struct_jobdict.json')
+    }, fname='toolkit.json')
