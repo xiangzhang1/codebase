@@ -1,6 +1,6 @@
 from shutil import copy
 from toolkit.functions import exec_file
-from toolkit.io.json import load, dump
+from projects.iter_111.json import load, dump
 from toolkit.io.vasp import struct2poscar
 from toolkit.manager import dstruct2jobdict, submit
 from toolkit.utils import ASSETS, template
