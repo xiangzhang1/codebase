@@ -55,6 +55,7 @@ class Manager(object):
         for _, job in self.jobs[self.jobs.state.isnull()].iterrows():
             template(i=f"{ASSETS}/templates/jobdict/retrieve", o="retrieve", d=job.to_dict())
             subprocess.run(f"bash retrieve", shell=True)
+            self.jobs.drop(_, inplace=True)
 
     def retrieve(self):
         self.refresh()
