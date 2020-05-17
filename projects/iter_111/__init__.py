@@ -40,3 +40,8 @@ def manage(manager, d, struct):
     jobdict = dstruct2jobdict(d, struct)
     submit(jobdict)
     manager.register(jobdict)
+    dump({
+        'd': d, # or None for jobs before v0.2.0
+        'struct': struct,
+        'jobdict': jobdict
+    }, fname='d_struct_jobdict.json')
