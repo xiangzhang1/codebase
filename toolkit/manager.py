@@ -42,15 +42,12 @@ class Manager(object):
         self.jobs = self.jobs.append(jobdict, ignore_index=True)
 
     def refresh(self):
-        # edge case
-        if self.jobs.empty:
-            return
         # write state
+        open("state", "w").close()
         for _, job in self.jobs.groupby('hostname').first().reset_index().iterrows():
             template(i=f"{ASSETS}/templates/jobdict/refresh/{job.hosttype}", o="refresh", d=job.to_dict())
             subprocess.run("bash refresh", shell=True)
         state = pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
-        remove("state")
         # join tables
         self.jobs = pd.merge(self.jobs.drop('state', axis='columns'), state, on='job_name', how='outer')
 
