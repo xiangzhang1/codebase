@@ -49,7 +49,7 @@ class Manager(object):
             subprocess.run("bash refresh", shell=True)
         state = pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
         # join tables
-        self.jobs = pd.merge(self.jobs.drop('state', axis='columns'), state, on='job_name', how='outer')
+        self.jobs = pd.merge(self.jobs.drop('state', axis='columns'), state, on='job_name', how='left')
 
     def _retrieve(self):
         for _, job in self.jobs[self.jobs.state.isnull()].iterrows():
