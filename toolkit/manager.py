@@ -1,4 +1,4 @@
-import os
+from os import getcwd, remove
 import subprocess
 import random
 import string
@@ -42,12 +42,16 @@ class Manager(object):
         self.jobs = self.jobs.append(jobdict, ignore_index=True)
 
     def refresh(self):
+        # edge case
         if self.jobs.empty:
             return
+        # write state
         for _, job in self.jobs.groupby('hostname').first().reset_index().iterrows():
             template(i=f"{ASSETS}/templates/jobdict/refresh/{job.hosttype}", o="refresh", d=job.to_dict())
             subprocess.run("bash refresh", shell=True)
         state = pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
+        remove("state")
+        # join tables
         self.jobs = pd.merge(self.jobs.drop('state', axis='columns'), state, on='job_name', how='outer')
 
     def _retrieve(self):
@@ -66,7 +70,7 @@ What? Still here? You don't even want to manually specify remote_path etc.? Okay
 
 
 def jobdict(cluster, uid_prefix=''):
-    cwd = os.getcwd()
+    cwd = getcwd()
     uid = uid_prefix + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
     template(i=f"{ASSETS}/templates/jobdict/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, uid=uid))
     return pd.read_csv('auto_jobdict').set_index('cluster').loc[cluster]
