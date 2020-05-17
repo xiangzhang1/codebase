@@ -35,5 +35,6 @@ def manage(manager, d, struct, struct_metadata):
         'd': d,  # possible incompatibility due to upconverting from v0.1.0
         'struct': struct,
         'struct_metadata': struct_metadata,
-        'jobdict': jobdict
+        'jobdict': jobdict,
+        '__toolkit_version__': '0.2.0'
     }, fname='toolkit.json')
