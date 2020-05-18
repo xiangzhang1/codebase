@@ -27,7 +27,7 @@ def to_job(d):
     template(i=f"{ASSETS}/templates/d/job_vasp/gam/{d['cluster']}", o="job", d=d)
 
 
-def submit_manage(manager, d, struct, struct_metadata):
+def _submit_manage(manager, d, struct, struct_metadata):
     jobdict = dstruct2jobdict(d, struct)
     submit(jobdict)
     manager.register(jobdict)
