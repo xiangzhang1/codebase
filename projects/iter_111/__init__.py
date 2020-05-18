@@ -15,7 +15,7 @@ def prepare(d):
     exec_file(f"{ASSETS}/templates/d/job_vasp/gam/rules.py", d)
 
 
-def vasp(d, struct):
+def to_vasp(d, struct):
     PREFIX = f"{ASSETS}/templates/d/vasp/pbs_qd_opt"
     template(i=f"{PREFIX}/INCAR", o="INCAR", d=d)
     struct2poscar(struct, 'POSCAR')
@@ -23,11 +23,11 @@ def vasp(d, struct):
     copy(f"{PREFIX}/POTCAR", "POTCAR")
 
 
-def job(d):
+def to_job(d):
     template(i=f"{ASSETS}/templates/d/job_vasp/gam/{d['cluster']}", o="job", d=d)
 
 
-def manage(manager, d, struct, struct_metadata):
+def submit_manage(manager, d, struct, struct_metadata):
     jobdict = dstruct2jobdict(d, struct)
     submit(jobdict)
     manager.register(jobdict)

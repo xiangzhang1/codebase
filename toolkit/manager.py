@@ -67,7 +67,7 @@ What? Still here? You don't even want to manually specify remote_path etc.? Okay
 """
 
 
-def jobdict(cluster, uid_prefix=''):
+def to_jobdict(cluster, uid_prefix=''):
     cwd = getcwd()
     uid = uid_prefix + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
     template(i=f"{ASSETS}/templates/jobdict/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, uid=uid))
@@ -75,4 +75,4 @@ def jobdict(cluster, uid_prefix=''):
 
 
 def dstruct2jobdict(d, struct):
-    return jobdict(cluster=d['cluster'], uid_prefix=dict2str(struct.stoichiometry))
+    return to_jobdict(cluster=d['cluster'], uid_prefix=dict2str(struct.stoichiometry))
