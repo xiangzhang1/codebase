@@ -1,0 +1,56 @@
+from shutil import copy
+from toolkit.functions import exec_file
+from apps.manager.json import dump
+from toolkit.io.vasp import struct2poscar
+from apps.manager.manager import dstruct2jobdict, submit, sample_jobdict
+from toolkit.struct import Struct
+from toolkit.utils import ASSETS, template
+
+sample_d = {
+    'cluster': str,
+    'nnode': int
+}
+
+
+def prepare(d):
+    exec_file(f"{ASSETS}/templates/d/job_vasp/gam/rules.py", d)
+
+
+def to_vasp(d, struct):
+    PREFIX = f"{ASSETS}/templates/d/vasp/pbs_qd_opt"
+    template(i=f"{PREFIX}/INCAR", o="INCAR", d=d)
+    struct2poscar(struct, 'POSCAR')
+    copy(f"{PREFIX}/KPOINTS", "KPOINTS")
+    copy(f"{PREFIX}/POTCAR", "POTCAR")
+
+
+def to_job(d):
+    template(i=f"{ASSETS}/templates/d/job_vasp/gam/{d['cluster']}", o="job", d=d)
+
+
+def _submit_manage(manager, d, struct, struct_metadata):
+    jobdict = dstruct2jobdict(d, struct)
+    submit(jobdict)
+    manager.register(jobdict)
+    dump({
+        'd': d,
+        'struct': struct,
+        'struct_metadata': struct_metadata,
+        'jobdict': jobdict,
+        '__toolkit_version__': '0.2.0'
+    }, fname='toolkit.json')
+
+
+sample_json = {
+    'd': sample_d,  # possible incompatibility due to upconverting from v0.1.0
+    'struct': Struct,
+    'struct_metadata': {
+        'N': int,
+        'pad': float,
+        'symmetry': str,
+        'unit_cell': str,
+        'wulff': {'100': 6.02, '111': 5.48}
+    },
+    'jobdict': sample_jobdict,
+    '__toolkit_version__': '0.2.0'
+}
