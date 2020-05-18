@@ -2,7 +2,8 @@ from shutil import copy
 from toolkit.functions import exec_file
 from toolkit.io.json import dump
 from toolkit.io.vasp import struct2poscar
-from toolkit.manager import dstruct2jobdict, submit
+from toolkit.manager import dstruct2jobdict, submit, sample_jobdict
+from toolkit.struct import Struct
 from toolkit.utils import ASSETS, template
 
 sample_d = {
@@ -32,9 +33,24 @@ def _submit_manage(manager, d, struct, struct_metadata):
     submit(jobdict)
     manager.register(jobdict)
     dump({
-        'd': d,  # possible incompatibility due to upconverting from v0.1.0
+        'd': d,
         'struct': struct,
         'struct_metadata': struct_metadata,
         'jobdict': jobdict,
         '__toolkit_version__': '0.2.0'
     }, fname='toolkit.json')
+
+
+sample_json = {
+    'd': sample_d,  # possible incompatibility due to upconverting from v0.1.0
+    'struct': Struct,
+    'struct_metadata': {
+        'N': int,
+        'pad': float,
+        'symmetry': str,
+        'unit_cell': str,
+        'wulff': {'100': 6.02, '111': 5.48}
+    },
+    'jobdict': sample_jobdict,
+    '__toolkit_version__': '0.2.0'
+}
