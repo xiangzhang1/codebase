@@ -47,9 +47,7 @@ class Manager(object):
         for _, job in self.jobs.groupby('hostname').first().reset_index().iterrows():
             template(i=f"{ASSETS}/templates/jobdict/refresh/{job.hosttype}", o="refresh", d=job.to_dict())
             subprocess.run("bash refresh", shell=True)
-            remove("refresh")
         state = pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
-        remove("state")
         # join tables
         self.jobs = pd.merge(self.jobs.drop('state', axis='columns'), state, on='job_name', how='left')
 
@@ -57,7 +55,6 @@ class Manager(object):
         for _, job in self.jobs[self.jobs.state.isnull()].iterrows():
             template(i=f"{ASSETS}/templates/jobdict/retrieve", o="retrieve", d=job.to_dict())
             subprocess.run(f"bash retrieve", shell=True)
-            remove("retrieve")
             self.jobs.drop(_, inplace=True)
 
     def retrieve(self):
