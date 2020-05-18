@@ -71,7 +71,7 @@ def to_jobdict(cluster, uid_prefix=''):
     cwd = getcwd()
     uid = uid_prefix + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
     template(i=f"{ASSETS}/templates/jobdict/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, uid=uid))
-    return pd.read_csv('auto_jobdict').set_index('cluster').loc[cluster]
+    return pd.read_csv('auto_jobdict').set_index('cluster').loc[cluster].to_dict()
 
 
 def dstruct2jobdict(d, struct):
