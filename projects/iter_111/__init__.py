@@ -2,7 +2,7 @@ from shutil import copy
 from toolkit.functions import exec_file
 from toolkit.io.json import dump
 from toolkit.io.vasp import struct2poscar
-from toolkit.manager import dstruct2jobdict, submit, sample_jobdict
+from projects.manager import dstruct2jobdict, submit, sample_jobdict
 from toolkit.struct import Struct
 from toolkit.utils import ASSETS, template
 

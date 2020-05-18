@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import json
 from toolkit.struct import Struct
-from toolkit.manager import Manager
+from projects.manager import Manager
 
 
 """
