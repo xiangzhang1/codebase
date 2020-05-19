@@ -1,12 +1,12 @@
 import os
-from apps.manager.json import load, dump
+from apps.io.json import load, dump
 
-SAVE_FOLDER = os.path.dirname(__file__)
+SAVEFILE = os.path.join(os.path.dirname(__file__), 'manager.json')
 
 
 def load_manager():
-    return load(f"{SAVE_FOLDER}/manager.json")
+    return load(SAVEFILE)
 
 
 def dump_manager(manager):
-    dump(manager, f"{SAVE_FOLDER}/manager.json")
+    dump(manager, SAVEFILE)

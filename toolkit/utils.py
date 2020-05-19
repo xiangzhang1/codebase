@@ -1,23 +1,4 @@
-import os
 import pandas as pd
-
-ASSETS = os.path.join(os.path.dirname(__file__), "assets")
-
-periodic_table = pd.read_excel(
-    os.path.join(ASSETS, "periodic_table.xlsx")
-)
-
-
-def periodic_table_lookup(symbol, column):
-    """
-    Parameters
-    ----------
-        symbol : str
-            'Pb'
-        column : str
-            'pot_encut'
-    """
-    return periodic_table.loc[periodic_table.symbol == symbol, column].values[0]
 
 
 def template(i, o, d):
@@ -65,3 +46,7 @@ def dict2str(d):
         Pb55S38
     """
     return ''.join(k+str(v) for k,v in d.items())
+
+
+def random_string(length):
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))

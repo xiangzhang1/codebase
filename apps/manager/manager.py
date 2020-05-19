@@ -1,9 +1,8 @@
 from os import getcwd
 import subprocess
-import random
-import string
 import pandas as pd
-from toolkit.utils import template, ASSETS, dict2str
+from toolkit.utils import template, dict2str, random_string
+from apps.assets import ASSETS
 
 """
 So you're here.
@@ -69,7 +68,7 @@ What? Still here? You don't even want to manually specify remote_path etc.? Okay
 
 def to_jobdict(cluster, uid_prefix=''):
     cwd = getcwd()
-    uid = uid_prefix + ''.join(random.choices(string.ascii_letters + string.digits, k=4))
+    uid = uid_prefix + random_string(4)
     template(i=f"{ASSETS}/templates/jobdict/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, uid=uid))
     return pd.read_csv('auto_jobdict').set_index('cluster').loc[cluster].to_dict()
 

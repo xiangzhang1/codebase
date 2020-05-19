@@ -1,10 +1,12 @@
 from shutil import copy
+from uuid import uuid1
 from toolkit.functions import exec_file
-from apps.manager.json import dump
 from toolkit.io.vasp import struct2poscar
-from apps.manager.manager import dstruct2jobdict, submit, sample_jobdict
 from toolkit.struct import Struct
-from toolkit.utils import ASSETS, template
+from toolkit.utils import template
+from apps.io.json import dump
+from apps.manager.manager import dstruct2jobdict, submit
+from apps.assets import ASSETS
 
 sample_d = {
     'cluster': str,
@@ -24,25 +26,47 @@ def to_vasp(d, struct):
     copy(f"{PREFIX}/POTCAR", "POTCAR")
 
 
-def to_job(d):
-    template(i=f"{ASSETS}/templates/d/job_vasp/gam/{d['cluster']}", o="job", d=d)
+def to_subfile(d):
+    template(i=f"{ASSETS}/templates/d/sub_vasp/gam/{d['cluster']}", o="job", d=d)
 
 
-def _submit_manage(manager, d, struct, struct_metadata):
-    jobdict = dstruct2jobdict(d, struct)
-    submit(jobdict)
-    manager.register(jobdict)
-    dump({
-        'd': d,
-        'struct': struct,
-        'struct_metadata': struct_metadata,
-        'jobdict': jobdict,
-        '__toolkit_version__': '0.2.0'
-    }, fname='toolkit.json')
+# ------------------------------------
+
+# apps.manager
+
+jobdict = dstruct2jobdict(d, struct)
+submit(jobdict)
+
+# apps.relations
+
+manager.register(jobdict)
+
+uuid = uuid1().hex
+
+
+# -----------------------------------
+
+
+dump({
+    'd': d,
+    'struct': struct,
+    'struct_metadata': struct_metadata,
+
+    'jobdict': jobdict,
+
+    'uuid': uuid,
+
+    '__toolkit_version__': '0.2.0'
+}, fname='toolkit.json')
+
 
 
 sample_json = {
-    'd': sample_d,  # possible incompatibility due to upconverting from v0.1.0
+    'd': {
+        'cluster': 'knl',
+        'nnode': 4,
+        'queue': 'low'
+    },
     'struct': Struct,
     'struct_metadata': {
         'N': int,
