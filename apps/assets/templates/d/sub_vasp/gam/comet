@@ -5,7 +5,7 @@
 #SBATCH -t 48:00:00
 #SBATCH --output=output
 #SBATCH --error=error
-#SBATCH --export=ALL=
+#SBATCH --export=ALL
 
-module load vasp/5.4.4  # XSEDE ticket #134504: It[vasp6] is not on all the nodes and you are getting a mix of versions.
+module load vasp/5.4.4  # XSEDE ticket #134504: vasp 6 not on all nodes
 mpirun -np {ntask} vasp_gam
