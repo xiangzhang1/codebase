@@ -43,6 +43,10 @@ submit(jobdict)
 manager.register(jobdict)
 
 uuid = uuid1().hex
+relations['opt->opt'] = relations['opt->opt'].append({
+    'prev': prev_uuid,
+    'next': uuid
+}, ignore_index=True)
 
 
 # -----------------------------------
