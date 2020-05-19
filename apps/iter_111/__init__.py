@@ -16,7 +16,7 @@ sample_d = {
 
 
 def prepare(d):
-    exec_file(f"{ASSETS}/templates/d/job_vasp/gam/rules.py", d)
+    exec_file(f"{ASSETS}/templates/d/sub_vasp/gam/rules.py", d)
 
 
 def to_vasp(d, struct):
