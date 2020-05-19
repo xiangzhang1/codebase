@@ -3,5 +3,5 @@
 rsync -a --info=progress2 . {hostname}:{remote}
 ssh {hostname} <<EOF
   cd {remote}
-  nohup bash job > nohup.out &
+  nohup bash subfile > nohup.out &
 EOF

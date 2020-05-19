@@ -27,7 +27,7 @@ def to_vasp(d, struct):
 
 
 def to_subfile(d):
-    template(i=f"{ASSETS}/templates/d/sub_vasp/gam/{d['cluster']}", o="job", d=d)
+    template(i=f"{ASSETS}/templates/d/sub_vasp/gam/{d['cluster']}", o="subfile", d=d)
 
 
 # ------------------------------------
