@@ -7,7 +7,7 @@ from apps.assets import ASSETS
 """
 So you're here.
 
-I expected more of you. I expected you to be able to submit your 49 jobs from 3 projects to various clusters,
+I expected more of you. I expected you to be able to submit your 49 jobs from 3 projects to 8 clusters,
 mentally keep track of them, and retrieve them when completed.
 
 Give me your request in the form of a `jobdict`, and I'll take it from there.

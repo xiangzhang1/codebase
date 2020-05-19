@@ -1,3 +1,11 @@
+from os import chdir, mkdir
+from uuid import uuid1
+
+from apps.io.json import load, dump
+from apps.iter_111 import prepare, to_vasp, to_subfile
+from apps.manager.manager import dstruct2jobdict, submit
+from toolkit.io.vasp import poscar2struct
+
 dirname = 'Pb201S260'
 
 chdir(dirname)
@@ -12,7 +20,7 @@ chdir(dirname + '-cont')
 
 d = {
     'cluster': 'knl',
-    'queue': 'low'
+    'queue': 'low',
     'nnode': 8
 }
 
