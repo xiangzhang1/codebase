@@ -66,13 +66,13 @@ What? Still here? You don't even want to manually specify remote_path etc.? Okay
 """
 
 
-def to_jobdict(cluster, uid_prefix=''):
+def to_jobdict(cluster, job_name_prefix=''):
     cwd = getcwd()
-    uid = uid_prefix + random_string(4)
-    template(i=f"{ASSETS}/templates/jobdict/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, uid=uid))
+    job_name = job_name_prefix + random_string(4)
+    template(i=f"{ASSETS}/templates/jobdict/auto_jobdict", o="auto_jobdict", d=dict(cwd=cwd, job_name=job_name))
     return pd.read_csv('auto_jobdict').set_index('cluster').loc[cluster].to_dict()
 
 
 def dstruct2jobdict(d, struct):
-    return to_jobdict(cluster=d['cluster'], uid_prefix=dict2str(struct.stoichiometry))
+    return to_jobdict(cluster=d['cluster'], job_name_prefix=dict2str(struct.stoichiometry))
 

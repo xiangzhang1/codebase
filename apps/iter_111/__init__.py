@@ -37,15 +37,18 @@ def to_subfile(d):
 
 jobdict = dstruct2jobdict(d, struct)
 submit(jobdict)
+manager.register(jobdict)
 
 # apps.relations
-
-manager.register(jobdict)
 
 uuid = uuid1().hex
 relations['opt->opt'] = relations['opt->opt'].append({
     'prev': prev_uuid,
     'next': uuid
+}, ignore_index=True)
+relations['bad_fulfillment'] = relations['bad_fulfillment'].append({
+    'bad_fulfillment': prev_uuid,
+    'try_again': uuid
 }, ignore_index=True)
 
 
