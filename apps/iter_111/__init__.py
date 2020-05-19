@@ -9,8 +9,9 @@ from apps.manager.manager import dstruct2jobdict, submit
 from apps.assets import ASSETS
 
 sample_d = {
-    'cluster': str,
-    'nnode': int
+    'cluster': 'knl',
+    'queue': 'low',
+    'nnode': 4
 }
 
 
@@ -56,7 +57,7 @@ dump({
 
     'uuid': uuid,
 
-    '__toolkit_version__': '0.2.0'
+    '__toolkit_version__': '0.2.1'
 }, fname='toolkit.json')
 
 
