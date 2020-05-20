@@ -77,5 +77,5 @@ def to_jobdict(cluster, job_name_prefix=''):
 
 
 def dstruct2jobdict(d, struct):
-    return to_jobdict(cluster=d['cluster'], job_name_prefix=slugify(os.path.split(os.getcwd())[-1]))
+    return to_jobdict(cluster=d['cluster'], job_name_prefix=os.path.split(os.getcwd())[-1])
 

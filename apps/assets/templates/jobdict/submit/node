@@ -1,7 +1,8 @@
 # gotcha: nohup - no output by default
 # gotcha: bash redirect - 2>&1 >out vs >out 2>&1
-rsync -a --info=progress2 . {hostname}:{remote}
+# minor gotcha: () in filename
+rsync -a --info=progress2 . {hostname}:'{remote}'
 ssh {hostname} <<EOF
-  cd {remote}
+  cd '{remote}'
   nohup bash subfile > nohup.out &
 EOF
