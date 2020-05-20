@@ -2,7 +2,7 @@ import os
 from os import getcwd
 import subprocess
 import pandas as pd
-from toolkit.utils import template, dict2str, random_string
+from toolkit.utils import template, random_string, slugify
 from apps.assets import ASSETS
 
 """
@@ -77,5 +77,5 @@ def to_jobdict(cluster, job_name_prefix=''):
 
 
 def dstruct2jobdict(d, struct):
-    return to_jobdict(cluster=d['cluster'], job_name_prefix=os.path.split(os.getcwd())[-1])
+    return to_jobdict(cluster=d['cluster'], job_name_prefix=slugify(os.path.split(os.getcwd())[-1]))
 
