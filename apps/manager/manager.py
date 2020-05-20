@@ -52,7 +52,9 @@ class Manager(object):
 
     def _retrieve(self):
         for _, job in self.jobs[self.jobs.state.isnull()].iterrows():
-            template(i=f"{ASSETS}/templates/jobdict/retrieve", o="retrieve", d=job.to_dict())
+            jobdict = job.to_dict()
+            print(f"{jobdict['hostname']}:{jobdict['remote']} -> {jobdict['local']}")
+            template(i=f"{ASSETS}/templates/jobdict/retrieve", o="retrieve", d=jobdict)
             subprocess.run(f"bash retrieve", shell=True)
             self.jobs.drop(_, inplace=True)
 
