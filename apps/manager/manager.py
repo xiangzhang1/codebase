@@ -2,7 +2,7 @@ import os
 from os import getcwd
 import subprocess
 import pandas as pd
-from toolkit.utils import template, random_string, slugify
+from toolkit.utils import template, random_string
 from apps.assets import ASSETS
 
 """
