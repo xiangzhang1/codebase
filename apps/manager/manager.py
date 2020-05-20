@@ -1,3 +1,4 @@
+import os
 from os import getcwd
 import subprocess
 import pandas as pd
@@ -76,5 +77,5 @@ def to_jobdict(cluster, job_name_prefix=''):
 
 
 def dstruct2jobdict(d, struct):
-    return to_jobdict(cluster=d['cluster'], job_name_prefix=dict2str(struct.stoichiometry))
+    return to_jobdict(cluster=d['cluster'], job_name_prefix=os.path.split(os.getcwd())[-1])
 
