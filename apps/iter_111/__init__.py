@@ -85,4 +85,4 @@ sample_json = {
     },
     'jobdict': sample_jobdict,
     '__toolkit_version__': '0.2.0'
-}
+}  # no special character (space, bracket) in job_name / filename, anything that might go in command-line.
