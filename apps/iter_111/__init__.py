@@ -46,10 +46,6 @@ relations['opt->opt'] = relations['opt->opt'].append({
     'prev': prev_uuid,
     'next': uuid
 }, ignore_index=True)
-relations['bad_fulfillment'] = relations['bad_fulfillment'].append({
-    'bad_fulfillment': prev_uuid,
-    'try_again': uuid
-}, ignore_index=True)
 
 
 # -----------------------------------
