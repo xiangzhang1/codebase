@@ -15,7 +15,7 @@ PREC = Normal
 
 # behavior
 LWAVE = .FALSE.
-LAECHG = .TRUE. # bader
-LORBIT = 11 # lm-decomposed dos
+LAECHG = .TRUE.  # bader
+LORBIT = 11  # lm-decomposed dos
 
 NCORE = {taskpernode}
