@@ -1,0 +1,21 @@
+# mode
+ISTART = 0
+ICHARG = 2
+
+EDIFF = 1E-5
+ISYM = 0
+
+# dft
+ENCUT = 400
+ISMEAR = 0
+SIGMA = 0.01
+ISPIN = 2
+LREAL = Auto
+PREC = Normal
+
+# behavior
+LWAVE = .FALSE.
+LAECHG = .TRUE. # bader
+LORBIT = 11 # lm-decomposed dos
+
+NCORE = {taskpernode}
