@@ -19,8 +19,8 @@ def prepare(d):
     exec_file(f"{ASSETS}/templates/d/sub_vasp/gam/rules.py", d)
 
 
-def to_vasp(d, struct):
-    PREFIX = f"{ASSETS}/templates/d/vasp/pbs_qd_opt"
+def to_vasp(d, struct, template):
+    PREFIX = f"{ASSETS}/templates/d/vasp/{template}"
     template(i=f"{PREFIX}/INCAR", o="INCAR", d=d)
     struct2poscar(struct, 'POSCAR')
     copy(f"{PREFIX}/KPOINTS", "KPOINTS")
