@@ -1,5 +1,5 @@
 import os
-from os import getcwd
+from os import getcwd, remove
 import subprocess
 import pandas as pd
 from toolkit.utils import template, random_string
@@ -47,7 +47,9 @@ class Manager(object):
         for _, job in self.jobs.groupby('hostname').first().reset_index().iterrows():
             template(i=f"{ASSETS}/templates/jobdict/refresh/{job.hosttype}", o="refresh", d=job.to_dict())
             subprocess.run("bash refresh", shell=True)
+        remove("refresh")
         state = pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
+        remove("state")
         # join tables
         self.jobs = pd.merge(self.jobs.drop('state', axis='columns'), state, on='job_name', how='left')
 
@@ -58,6 +60,7 @@ class Manager(object):
             template(i=f"{ASSETS}/templates/jobdict/retrieve", o="retrieve", d=jobdict)
             subprocess.run(f"bash retrieve", shell=True)
             self.jobs.drop(_, inplace=True)
+        remove("retrieve")
 
     def retrieve(self):
         self.refresh()
