@@ -47,7 +47,7 @@ class Manager(object):
         for _, job in self.jobs.groupby('hostname').first().reset_index().iterrows():
             template(i=f"{ASSETS}/templates/jobdict/refresh/{job.hosttype}", o="refresh", d=job.to_dict())
             subprocess.run("bash refresh", shell=True)
-        remove("refresh")
+            remove("refresh")
         state = pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
         remove("state")
         # join tables
@@ -59,8 +59,8 @@ class Manager(object):
             print(f"{jobdict['hostname']}:{jobdict['remote']} -> {jobdict['local']}")
             template(i=f"{ASSETS}/templates/jobdict/retrieve", o="retrieve", d=jobdict)
             subprocess.run(f"bash retrieve", shell=True)
+            remove("retrieve")
             self.jobs.drop(_, inplace=True)
-        remove("retrieve")
 
     def retrieve(self):
         self.refresh()
