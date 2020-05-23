@@ -4,8 +4,10 @@ import toolkit.functions
 from toolkit.struct import Struct
 from toolkit.functions import XS
 
+"""ASE writes POSCAR4."""
 
-def _atoms_to_struct(atoms):
+
+def atoms_to_struct(atoms):
     return Struct(
         A=atoms.get_cell(),
         XS=XS(
@@ -15,7 +17,7 @@ def _atoms_to_struct(atoms):
     )
 
 
-def _struct_to_atoms(struct):
+def struct_to_atoms(struct):
     return ase.Atoms(
         symbols=toolkit.functions.XS['S'].values,
         cell=struct.A,
