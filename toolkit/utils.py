@@ -1,7 +1,5 @@
 import random
 import string
-import unicodedata
-import re
 import pandas as pd
 
 

@@ -1,3 +1,5 @@
+from os.path import exists
+from collections.abc import MutableMapping
 import numpy as np
 import pandas as pd
 import json
@@ -38,11 +40,49 @@ class MyEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-def dump(obj, fname):
+# syntactic sugar below
+
+
+def dump(obj, fname):  # wraps json.dump
     with open(fname, 'w') as f:
         json.dump(obj, f, cls=MyEncoder)
 
 
-def load(fname):
+def load(fname):  # wraps json.load
     with open(fname, 'r') as f:
         return json.load(f, object_hook=my_decoder)
+
+
+class Store(MutableMapping):
+    """Implements API like pd.HDFStore. Not efficient at all.
+
+    `How to perfectly override a dict<https://stackoverflow.com/q/3387691/6417519>`_
+    """
+    def __init__(self, fname):
+        self.fname = fname
+        if not exists(fname):
+            dump({}, fname)
+
+    def __getitem__(self, key):
+        return load(self.fname)[key]
+
+    def __setitem__(self, key, val):
+        d = load(self.fname)
+        d[key] = val
+        dump(d, self.fname)
+
+    def __delitem__(self, key):
+        d = load(self.fname)
+        del d[self.__keytransform__(key)]
+        dump(d, self.fname)
+
+    def __iter__(self):
+        d = load(self.fname)
+        return iter(d)
+
+    def __len__(self):
+        d = load(self.fname)
+        return len(d)
+
+    def __keytransform__(self, key):
+        return key

@@ -79,6 +79,6 @@ def to_jobdict(cluster, job_name_prefix=''):
     return pd.read_csv('auto_jobdict').set_index('cluster').loc[cluster].to_dict()
 
 
-def dstruct2jobdict(d, struct):
+def dstruct2jobdict(d):
     return to_jobdict(cluster=d['cluster'], job_name_prefix=os.path.split(os.getcwd())[-1])
 
