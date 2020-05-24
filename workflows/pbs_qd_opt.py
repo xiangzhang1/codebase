@@ -40,6 +40,6 @@ def to_subfile(d):
 
 
 def write_additional_metadata():
-    store = Store('toolkit.json')['uuid']
+    store = Store('toolkit.json')
     store['workflow'] = 'pbs_qd_opt'
     store['__toolkit_version__'] = '0.2.2'
