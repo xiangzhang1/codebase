@@ -17,5 +17,6 @@ PREC = Normal
 LWAVE = .FALSE.
 LAECHG = .TRUE.  # bader
 LORBIT = 11  # lm-decomposed dos
+NELM = 300  # non-optimized c seems to take a lot of steps?
 
 NCORE = {taskpernode}
