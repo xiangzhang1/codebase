@@ -17,7 +17,7 @@ import os
 from os.path import join
 from uuid import uuid1
 from toolkit.io.json import load, dump, Store
-from apps.manager import dstruct2jobdict, submit
+from contrib.manager import dstruct2jobdict, submit
 
 
 def to_uuid():

@@ -1,4 +1,4 @@
-from toolkit.util import b64uuid, random_string
+from toolkit.utils import b64uuid, random_string
 from os import getcwd
 
 uid = b64uuid()
