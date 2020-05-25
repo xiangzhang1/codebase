@@ -1,5 +1,7 @@
 import random
+import re
 import string
+import unicodedata
 import pandas as pd
 
 
@@ -53,3 +55,10 @@ def dict2str(d):
 def random_string(length):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
+
+def slugify(value):
+    """Makes a string URL- and filename-friendly. """
+    value = unicodedata.normalize('NFKD', value)
+    value = re.sub(r'[^\w\s-]', '_', value).strip().lower()
+    value = re.sub(r'[-\s]+', '-', value)
+    return value
