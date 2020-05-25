@@ -10,10 +10,22 @@ manager : Manager
 relations : dict
 """
 
-
+import os
+from os.path import join
 from uuid import uuid1
-from apps.io.json import Store
-from apps.manager.manager import dstruct2jobdict, submit
+from apps.io.json import load, dump, Store
+from apps.manager import dstruct2jobdict, submit
+
+SAVE = join(os.path.dirname(__file__), 'save')
+
+
+def load_manager_relations():
+    return load(join(SAVE, 'manager.json')), load(join(SAVE, 'relations.json'))
+
+
+def dump_manager_relations(manager, relations):
+    dump(manager, join(SAVE, 'manager.json'))
+    dump(relations, join(SAVE, 'relations.json'))
 
 
 def to_uuid():

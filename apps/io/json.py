@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import json
 from toolkit.struct import Struct
-from apps.manager.manager import Manager
+from apps.manager import Manager
 
 
 """
