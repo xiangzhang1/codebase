@@ -1,4 +1,4 @@
-"""template(i, o, d); exec_file(rules, d)
+"""exec_file(rules, d); template(i, o, d)
 
 Parameters
 ----------

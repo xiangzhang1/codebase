@@ -1,7 +1,7 @@
-import os
 import itertools
 from collections import OrderedDict
 import numpy as np
+import pandas as pd
 
 
 class Struct(object):
@@ -46,22 +46,7 @@ class Struct(object):
         self.XS.sort_values(by='S', inplace=True)
 
 
-def template(i, o, d):
-    """i.format(d)
-
-    Parameters
-    ----------
-    i : str
-        input file path
-    o : str
-        output file path
-    d : dict
-    """
-    with open(i, "r") as i:
-        with open(o, "w") as o:
-            o.write(
-                i.read().format(**d)
-            )
-
-
-TEMPLATE = os.path.join(os.path.dirname(__file__), 'template')
+def XS(X, S):
+    XS = pd.DataFrame(X, columns=('X', 'Y', 'Z'))
+    XS['S'] = S
+    return XS

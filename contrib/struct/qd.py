@@ -1,14 +1,13 @@
 import numpy as np
 
-import toolkit.__init__
-import toolkit.function
-from toolkit.__init__ import Struct
-from toolkit.function import XS
+import toolkit.struct
+import toolkit.d
+from toolkit.struct import Struct, XS
 
 
 def repad(struct, pad):
-    X = toolkit.function.XS[['X', 'Y', 'Z']]
-    S = toolkit.function.XS.S
+    X = toolkit.struct.XS[['X', 'Y', 'Z']]
+    S = toolkit.struct.XS.S
 
     X -= np.amin(X, axis=0)
     box = np.amax(X, axis=0)

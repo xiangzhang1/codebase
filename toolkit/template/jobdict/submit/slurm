@@ -1,4 +1,4 @@
-rsync -a --info=progress2 . {hostname}:{remote}
+rsync -a --info=progress2 {local}/ {hostname}:{remote}
 ssh {hostname} <<EOF
   cd {remote}
   sbatch -J {job_name} subfile

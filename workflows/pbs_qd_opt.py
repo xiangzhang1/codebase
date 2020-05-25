@@ -14,9 +14,8 @@ struct : Struct
 
 from shutil import copy
 from toolkit.io.vasp import struct2poscar
-from toolkit.__init__ import Struct
-from toolkit.function import exec_file
-from toolkit import template
+from toolkit.struct import Struct
+from toolkit import template, exec_file
 from toolkit.io.json import Store
 from apps.assets import ASSETS
 

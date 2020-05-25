@@ -12,13 +12,13 @@ struct : Struct
 
 
 from shutil import copy
-from toolkit import Struct, template, TEMPLATE
-from toolkit.function import exec_file
+from toolkit.struct import Struct
+from toolkit.d import TEMPLATE, template, exec_file
 from toolkit.io.json import Store
 from toolkit.io.vasp import struct2poscar
 
 
-def prepare(d):
+def prepare_d(d):
     exec_file(f"{TEMPLATE}/d/sub_vasp/gam/rules.py", d)
     Store('toolkit.json')['d'] = d
 
@@ -34,12 +34,6 @@ def to_vasp(d, struct):
 
 def to_subfile(d):
     template(i=f"{TEMPLATE}/d/sub_vasp/gam/{d['cluster']}", o="subfile", d=d)
-
-
-def write_additional_metadata():
-    store = Store('toolkit.json')
-    store['workflow'] = 'pbs_qd_elecstruct'
-    store['__toolkit_version__'] = '0.2.2'
 
 
 # scp; sbatch; rsync

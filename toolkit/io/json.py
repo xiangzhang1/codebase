@@ -3,7 +3,7 @@ from collections.abc import MutableMapping
 import numpy as np
 import pandas as pd
 import json
-from toolkit.__init__ import Struct
+from toolkit.struct import Struct
 
 
 """

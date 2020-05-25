@@ -1,7 +1,7 @@
+import uuid
+import base64
 import random
-import re
 import string
-import unicodedata
 import pandas as pd
 
 
@@ -38,9 +38,11 @@ def random_string(length):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
 
-def slugify(value):
-    """Makes a string URL- and filename-friendly. """
-    value = unicodedata.normalize('NFKD', value)
-    value = re.sub(r'[^\w\s-]', '_', value).strip().lower()
-    value = re.sub(r'[-\s]+', '-', value)
-    return value
+def b64uuid():
+    """
+    Returns
+    -------
+    str
+        uuid1 (MAC address and current time) encoded in base64. length <= 22.
+    """
+    return base64.urlsafe_b64encode(uuid.uuid1().bytes).rstrip(b'=').decode('ascii')
