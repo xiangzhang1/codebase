@@ -5,24 +5,6 @@ import unicodedata
 import pandas as pd
 
 
-def template(i, o, d):
-    """i.format(d)
-
-    Parameters
-    ----------
-    i : str
-        input file path
-    o : str
-        output file path
-    d : dict
-    """
-    with open(i, "r") as i:
-        with open(o, "w") as o:
-            o.write(
-                i.read().format(**d)
-            )
-
-
 def array2str(arr):
     """
     Parameters

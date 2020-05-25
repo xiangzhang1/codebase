@@ -16,7 +16,7 @@ relations : dict
 import os
 from os.path import join
 from uuid import uuid1
-from apps.io.json import load, dump, Store
+from toolkit.io.json import load, dump, Store
 from apps.manager import dstruct2jobdict, submit
 
 

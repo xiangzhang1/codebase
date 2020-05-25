@@ -3,9 +3,9 @@ from math import sqrt
 import numpy as np
 from scipy.spatial.distance import pdist
 
-from toolkit.functions import XS
 from toolkit.io.vasp import poscar2struct
-from toolkit.struct import Struct
+from toolkit.__init__ import Struct
+from toolkit.function import XS
 
 
 def wulff_cut(unit_cell, unit_cell_metadata, wulff, symmetry='sc', pad=10, N=10):

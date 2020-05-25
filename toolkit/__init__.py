@@ -1,7 +1,7 @@
+import os
 import itertools
 from collections import OrderedDict
 import numpy as np
-from toolkit.utils import dict2str
 
 
 class Struct(object):
@@ -27,15 +27,6 @@ class Struct(object):
         return np.dot(self.XS[['X', 'Y', 'Z']], np.linalg.inv(self.A))
 
     @property
-    def unordered_stoichiometry(self):
-        """
-        Returns
-        -------
-        dict
-        """
-        return self.XS.S.value_counts()
-
-    @property
     def stoichiometry(self):
         """
         For use in POSCAR5. Requires struct to be "blocky", i.e. [Pb, Pb, Pb, S, S, S, S].
@@ -50,10 +41,27 @@ class Struct(object):
             stoichiometry[k] = len(list(g))
         return stoichiometry
 
-    @property
-    def stoichiometry_str(self):
-        return dict2str(self.stoichiometry)
-
     def sort(self):
         """Makes struct blocky."""
         self.XS.sort_values(by='S', inplace=True)
+
+
+def template(i, o, d):
+    """i.format(d)
+
+    Parameters
+    ----------
+    i : str
+        input file path
+    o : str
+        output file path
+    d : dict
+    """
+    with open(i, "r") as i:
+        with open(o, "w") as o:
+            o.write(
+                i.read().format(**d)
+            )
+
+
+TEMPLATE = os.path.join(os.path.dirname(__file__), 'template')

@@ -3,8 +3,7 @@ from collections.abc import MutableMapping
 import numpy as np
 import pandas as pd
 import json
-from toolkit.struct import Struct
-from apps.manager import Manager
+from toolkit.__init__ import Struct
 
 
 """
@@ -22,8 +21,6 @@ def my_decoder(dct):
         return pd.DataFrame.from_dict(dct)
     if '__Struct__' in dct:
         return Struct(dct['A'], dct['XS'])
-    if '__Manager__' in dct:
-        return Manager(dct['jobs'])
     return dct
 
 
@@ -35,8 +32,6 @@ class MyEncoder(json.JSONEncoder):
             return {'__DataFrame__': True, **obj.to_dict()}
         if isinstance(obj, Struct):
             return {'__Struct__': True, **obj.__dict__}
-        if isinstance(obj, Manager):
-            return {'__Manager__': True, **obj.__dict__}
         return json.JSONEncoder.default(self, obj)
 
 

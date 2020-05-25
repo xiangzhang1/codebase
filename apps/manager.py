@@ -2,7 +2,8 @@ import os
 from os import getcwd, remove
 import subprocess
 import pandas as pd
-from toolkit.utils import template, random_string
+from toolkit.util import random_string
+from toolkit import template
 from apps.assets import ASSETS
 
 """

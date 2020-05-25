@@ -13,11 +13,11 @@ struct : Struct
 
 
 from shutil import copy
-from toolkit.functions import exec_file
 from toolkit.io.vasp import struct2poscar
-from toolkit.struct import Struct
-from toolkit.utils import template
-from apps.io.json import Store
+from toolkit.__init__ import Struct
+from toolkit.function import exec_file
+from toolkit import template
+from toolkit.io.json import Store
 from apps.assets import ASSETS
 
 
