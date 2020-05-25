@@ -1,4 +1,4 @@
-from os.path import exists
+from os.path import exists, abspath
 from collections.abc import MutableMapping
 import numpy as np
 import pandas as pd
@@ -59,7 +59,7 @@ class Store(MutableMapping):
     `How to perfectly override a dict<https://stackoverflow.com/q/3387691/6417519>`_
     """
     def __init__(self, fname):
-        self.fname = fname
+        self.fname = abspath(fname)
         if not exists(fname):
             dump({}, fname)
 
