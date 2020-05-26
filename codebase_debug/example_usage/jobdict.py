@@ -6,7 +6,7 @@ d : dict
         'cluster': str
     }
 """
-from os import getcwd
+from os import getcwd, remove
 import subprocess
 from shutil import copy
 from path import Path
@@ -43,7 +43,10 @@ def retrieve(jobdict):
 def squeue():
     copy(f"{TEMPLATES}/squeue", '.')
     subprocess.run(['bash', 'squeue'])
-    return pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
+    state = pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
+    remove('squeue')
+    remove('state')
+    return state
 
 
 def retrievable(jobdict, queue):
