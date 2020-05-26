@@ -1,5 +1,5 @@
 #!/bin/bash
-touch state
+echo -n >state
 for hostname in eccle nanaimo irmik cori comet
 do
   ssh $hostname "squeue -u xzhang1 -h -o '%j %T'" >> state
