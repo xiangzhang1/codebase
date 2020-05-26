@@ -17,7 +17,7 @@ from codebase_023.toolkit.io.json import json, load
 
 def prepare_jobdict(d):
     jobdict = {'cluster': d['cluster']}
-    exec_file(f"{TEMPLATES}/d/jobdict/rules.py", jobdict)
+    exec_file(f"{TEMPLATES}/jobdict/rules.py", jobdict)
     return jobdict
 
 
