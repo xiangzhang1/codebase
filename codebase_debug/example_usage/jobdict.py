@@ -23,7 +23,7 @@ def prepare_jobdict(d):
 
 def submit(jobdict):
     template(i=f"{TEMPLATES}/jobdict/submit/{jobdict['hosttype']}", o="submit", d=jobdict)
-    print(subprocess.check_output(['bash', 'submit']))
+    print(subprocess.check_output(['bash', 'submit']).decode())
     jobdict['submit'] = True
     with open_json('toolkit.json') as data:
         data['jobdict'] = jobdict
@@ -32,7 +32,7 @@ def submit(jobdict):
 def retrieve(jobdict):
     # retrieve to .
     template(i=f"{TEMPLATES}/jobdict/retrieve", o="retrieve", d=jobdict)
-    print(subprocess.check_output(['bash', 'retrieve']))
+    print(subprocess.check_output(['bash', 'retrieve']).decode())
     del jobdict['submit']
     with open_json('toolkit.json') as data:
         data['jobdict'] = jobdict
@@ -40,7 +40,7 @@ def retrieve(jobdict):
 
 def squeue():
     copy(f"{TEMPLATES}/squeue", '')
-    print(subprocess.check_output(['bash', 'squeue']))
+    print(subprocess.check_output(['bash', 'squeue']).decode())
     return pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
 
 
