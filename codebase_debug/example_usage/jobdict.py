@@ -73,9 +73,10 @@ def mass_report(root_dir):
         if f.name == 'toolkit.json':
             with Path(f.dirname()):
                 data = load('toolkit.json')
-                if 'jobdict' in data and 'submit' in data['jobdict']:
+                if 'jobdict' in data:
                     jobdict = data['jobdict']
-                    del jobdict['submit']
-                    jobdict['local'] = getcwd()
-                    report = report.append(jobdict, ignore_index=True)
+                    if 'submit' in jobdict:
+                        del jobdict['submit']
+                        jobdict['local'] = getcwd()
+                        report = report.append(jobdict, ignore_index=True)
     return pd.merge(report, queue, on='job_name', how='left')
