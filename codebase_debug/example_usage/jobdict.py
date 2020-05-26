@@ -39,7 +39,7 @@ def retrieve(jobdict):
 
 
 def squeue():
-    copy(f"{TEMPLATES}/squeue", '')
+    copy(f"{TEMPLATES}/squeue", '.')
     print(subprocess.check_output(['bash', 'squeue']).decode())
     return pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
 
