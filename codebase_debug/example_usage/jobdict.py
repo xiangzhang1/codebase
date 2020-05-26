@@ -53,6 +53,6 @@ def mass_retrieve(root_dir):
     for f in Path(root_dir).walk():
         if f.name == 'toolkit.json':
             with Path(f.dirname()):
-                jobdict = load('toolkit.json')
+                jobdict = load('toolkit.json')['jobdict']
                 if retrievable(jobdict, queue):
                     retrieve(jobdict)
