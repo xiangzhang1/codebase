@@ -102,7 +102,7 @@ def wulff_cut(unit_cell, unit_cell_metadata, wulff, symmetry='sc', pad=10, N=10)
     X += pad
 
     struct = Struct(A, XS(X,S))
-    wulff0 = {''.join(map(str, k)):v for k,v in wulff0.copy().items()}  # (1,0,0): 1.7 is not json serializable
+    wulff0 = {''.join(map(str, k)):v for k,v in wulff0.copy().items()}  # (1,0,0): 1.7 is not open_json serializable
     metadata = {
         'unit_cell': unit_cell_metadata,
         'wulff': wulff0,

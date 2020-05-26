@@ -12,7 +12,7 @@ from path import Path
 import pandas as pd
 from codebase_debug.example_usage.templates import TEMPLATES
 from codebase_debug.toolkit.functions import template, exec_file
-from codebase_debug.toolkit.io.json import json, load
+from codebase_debug.toolkit.io.json import open_json, load
 
 
 def prepare_jobdict(d):
@@ -25,7 +25,7 @@ def submit(jobdict):
     template(i=f"{TEMPLATES}/jobdict/submit/{jobdict['hosttype']}", o="submit", d=jobdict)
     print(subprocess.check_output(['bash', 'submit']))
     jobdict['submit'] = True
-    with json('toolkit.json') as data:
+    with open_json('toolkit.open_json') as data:
         data['jobdict'] = jobdict
 
 
@@ -34,7 +34,7 @@ def retrieve(jobdict):
     template(i=f"{TEMPLATES}/jobdict/retrieve", o="retrieve", d=jobdict)
     print(subprocess.check_output(['bash', 'retrieve']))
     del jobdict['submit']
-    with json('toolkit.json') as data:
+    with open_json('toolkit.open_json') as data:
         data['jobdict'] = jobdict
 
 
@@ -51,8 +51,8 @@ def retrievable(jobdict, queue):
 def mass_retrieve(root_dir):
     queue = squeue()
     for f in Path(root_dir).walk():
-        if f.name == 'toolkit.json':
+        if f.name == 'toolkit.open_json':
             with Path(f.dirname()):
-                jobdict = load('toolkit.json')
+                jobdict = load('toolkit.open_json')
                 if retrievable(jobdict, queue):
                     retrieve(jobdict)

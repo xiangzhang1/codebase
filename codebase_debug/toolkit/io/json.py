@@ -1,6 +1,5 @@
 from contextlib import contextmanager
 from os.path import exists
-
 import numpy as np
 import pandas as pd
 import json
@@ -10,7 +9,7 @@ from codebase_debug.toolkit.struct import Struct
 """
 If you want interoperability, go with JSON.
 
-`json<https://docs.python.org/3/library/json.html>`_
+`open_json<https://docs.python.org/3/library/json.html>`_
 """
 
 
@@ -50,7 +49,7 @@ def load(fname):
 
 
 @contextmanager
-def json(fname):
+def open_json(fname):
     data = load(fname) if exists(fname) else {}
     try:
         yield data
