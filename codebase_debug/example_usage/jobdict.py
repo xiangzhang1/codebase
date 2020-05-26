@@ -10,9 +10,9 @@ import subprocess
 from shutil import copy
 from path import Path
 import pandas as pd
-from codebase_023.example_usage.templates import TEMPLATES
-from codebase_023.toolkit.functions import template, exec_file
-from codebase_023.toolkit.io.json import json, load
+from codebase_debug.example_usage.templates import TEMPLATES
+from codebase_debug.toolkit.functions import template, exec_file
+from codebase_debug.toolkit.io.json import json, load
 
 
 def prepare_jobdict(d):

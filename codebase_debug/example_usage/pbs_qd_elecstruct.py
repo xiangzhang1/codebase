@@ -12,12 +12,11 @@ struct : Struct
 
 
 from shutil import copy
-from codebase_023.toolkit.functions import template, exec_file
-from codebase_023.toolkit.io.vasp import struct2poscar
-from codebase_023.toolkit.io.json import json
-from codebase_023.example_usage.templates import TEMPLATES
-from codebase_023.toolkit.struct import Struct
-from codebase_023.toolkit.utils import b64uuid
+from codebase_debug.toolkit.functions import template, exec_file
+from codebase_debug.toolkit.io.vasp import struct2poscar
+from codebase_debug.toolkit.io.json import json
+from codebase_debug.example_usage.templates import TEMPLATES
+from codebase_debug.toolkit.utils import b64uuid
 
 
 def prepare_d(d):
@@ -27,7 +26,7 @@ def prepare_d(d):
 
 
 def to_vasp(d, struct):
-    PREFIX = f"{TEMPLATES}/d/vasp/pbs_qd_opt"
+    PREFIX = f"{TEMPLATES}/d/vasp/pbs_qd_sc_bd_lm"
     template(i=f"{PREFIX}/INCAR", o="INCAR", d=d)
     struct2poscar(struct, 'POSCAR')
     copy(f"{PREFIX}/KPOINTS", "KPOINTS")
@@ -45,23 +44,8 @@ def write_additional_metadata():
         data['uuid'] = b64uuid()
         # data['relations'] = {'opt<-': uuid}
         data['about'] = {
-            'workflow': 'pbs_qd_opt',
+            'workflow': 'pbs_qd_elecstruct',
             '__toolkit_version__': '0.2.3',
             # 'struct_metadata': dict
         }
 
-
-signature = {
-    'uuid': str,
-    'd': dict,
-    'struct': Struct,
-    'jobdict': dict,    # optional
-    'relations': {      # optional
-        'opt<-': str
-    },
-    'about': {
-        'version': str,
-        'workflow': str,    # optional
-        'struct_metadata': dict     # optional
-    }
-}

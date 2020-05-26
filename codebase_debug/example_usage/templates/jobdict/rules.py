@@ -1,4 +1,4 @@
-from codebase_023.toolkit.utils import random_string
+from codebase_debug.toolkit.utils import random_string
 import os
 
 hostname = {

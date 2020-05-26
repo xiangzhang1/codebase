@@ -1,7 +1,7 @@
 import numpy as np
 from collections import OrderedDict
-from codebase_023.toolkit.utils import array2str, dict2str
-from codebase_023.toolkit.struct import Struct, XS
+from codebase_debug.toolkit.utils import array2str, dict2str
+from codebase_debug.toolkit.struct import Struct, XS
 
 
 def struct2str(struct):
