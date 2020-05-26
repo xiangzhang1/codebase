@@ -22,7 +22,7 @@ from codebase_debug.toolkit.utils import b64uuid
 
 def prepare_d(d):
     exec_file(f"{TEMPLATES}/d/sub_vasp/gam/rules.py", d)
-    with open_json('toolkit.open_json') as data:
+    with open_json('toolkit.json') as data:
         data['d'] = d
 
 
@@ -32,7 +32,7 @@ def to_vasp(d, struct):
     struct2poscar(struct, 'POSCAR')
     copy(f"{PREFIX}/KPOINTS", "KPOINTS")
     copy(f"{PREFIX}/POTCAR", "POTCAR")
-    with open_json('toolkit.open_json') as data:
+    with open_json('toolkit.json') as data:
         data['struct'] = struct
 
 
@@ -41,7 +41,7 @@ def to_subfile(d):
 
 
 def write_additional_metadata():
-    with open_json('toolkit.open_json') as data:
+    with open_json('toolkit.json') as data:
         data['uuid'] = b64uuid()
         # data['relations'] = {'opt<-': uuid}
         data['about'] = {

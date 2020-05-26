@@ -25,7 +25,7 @@ def submit(jobdict):
     template(i=f"{TEMPLATES}/jobdict/submit/{jobdict['hosttype']}", o="submit", d=jobdict)
     print(subprocess.check_output(['bash', 'submit']))
     jobdict['submit'] = True
-    with open_json('toolkit.open_json') as data:
+    with open_json('toolkit.json') as data:
         data['jobdict'] = jobdict
 
 
@@ -34,7 +34,7 @@ def retrieve(jobdict):
     template(i=f"{TEMPLATES}/jobdict/retrieve", o="retrieve", d=jobdict)
     print(subprocess.check_output(['bash', 'retrieve']))
     del jobdict['submit']
-    with open_json('toolkit.open_json') as data:
+    with open_json('toolkit.json') as data:
         data['jobdict'] = jobdict
 
 
@@ -51,8 +51,8 @@ def retrievable(jobdict, queue):
 def mass_retrieve(root_dir):
     queue = squeue()
     for f in Path(root_dir).walk():
-        if f.name == 'toolkit.open_json':
+        if f.name == 'toolkit.json':
             with Path(f.dirname()):
-                jobdict = load('toolkit.open_json')
+                jobdict = load('toolkit.json')
                 if retrievable(jobdict, queue):
                     retrieve(jobdict)

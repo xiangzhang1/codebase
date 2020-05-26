@@ -9,7 +9,7 @@ from codebase_debug.toolkit.struct import Struct
 """
 If you want interoperability, go with JSON.
 
-`open_json<https://docs.python.org/3/library/json.html>`_
+`json<https://docs.python.org/3/library/json.html>`_
 """
 
 
