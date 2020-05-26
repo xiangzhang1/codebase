@@ -6,6 +6,7 @@ d : dict
         'cluster': str
     }
 """
+from os import getcwd
 import subprocess
 from shutil import copy
 from path import Path
@@ -23,7 +24,7 @@ def prepare_jobdict(d):
 
 def submit(jobdict):
     template(i=f"{TEMPLATES}/jobdict/submit/{jobdict['hosttype']}", o="submit", d=jobdict)
-    print(subprocess.check_output(['bash', 'submit']).decode())
+    subprocess.run(['bash', 'submit'])
     with open_json('toolkit.json') as data:
         jobdict['submit'] = True
         data['jobdict'] = jobdict
@@ -33,7 +34,7 @@ def retrieve(jobdict):
     # retrieve to .
     assert jobdict['hostname'] != 'localhost'
     template(i=f"{TEMPLATES}/jobdict/retrieve", o="retrieve", d=jobdict)
-    print(subprocess.check_output(['bash', 'retrieve']).decode())
+    subprocess.run(['bash', 'retrieve'])
     with open_json('toolkit.json') as data:
         del jobdict['submit']
         data['jobdict'] = jobdict
@@ -41,7 +42,7 @@ def retrieve(jobdict):
 
 def squeue():
     copy(f"{TEMPLATES}/squeue", '.')
-    print(subprocess.check_output(['bash', 'squeue']).decode())
+    subprocess.run(['bash', 'squeue'])
     return pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
 
 
@@ -56,4 +57,5 @@ def mass_retrieve(root_dir):
             with Path(f.dirname()):
                 jobdict = load('toolkit.json')['jobdict']
                 if retrievable(jobdict, queue):
+                    print(f"{jobdict['hostname']}: {jobdict['remote']} -> {getcwd()}")
                     retrieve(jobdict)
