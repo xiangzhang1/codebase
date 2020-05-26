@@ -73,7 +73,7 @@ def mass_report(root_dir):
         if f.name == 'toolkit.json':
             with Path(f.dirname()):
                 data = load('toolkit.json')
-                if 'jobdict' in data and 'submit' in jobdict:
+                if 'jobdict' in data and 'submit' in data['jobdict']:
                     jobdict = data['jobdict']
                     del jobdict['submit']
                     jobdict['local'] = getcwd()
