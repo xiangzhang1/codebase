@@ -4,7 +4,7 @@ from os.path import exists
 import numpy as np
 import pandas as pd
 import json
-from toolkit.struct import Struct
+from codebase_023.toolkit.struct import Struct
 
 
 """

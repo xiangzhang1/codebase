@@ -10,9 +10,9 @@ import subprocess
 from shutil import copy
 from path import Path
 import pandas as pd
-from example_usage.templates import TEMPLATES
-from toolkit.functions import template, exec_file
-from toolkit.io.json import json, load
+from codebase_023.example_usage.templates import TEMPLATES
+from codebase_023.toolkit.functions import template, exec_file
+from codebase_023.toolkit.io.json import json, load
 
 
 def prepare_jobdict(d):
@@ -39,7 +39,7 @@ def retrieve(jobdict):
 
 
 def squeue():
-    copy(f"{TEMPLATES}/squeue", '.')
+    copy(f"{TEMPLATES}/squeue", '')
     print(subprocess.check_output(['bash', 'squeue']))
     return pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
 
