@@ -13,8 +13,8 @@ jobdict : dict
     adds {
         'hostname': str,
         'hosttype': str,
-        'remote': str,
-        'job_name': str
+        'job_name': str,
+        'remote': str
     }
     removes {
         'cluster': str
