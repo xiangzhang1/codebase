@@ -58,9 +58,24 @@ def mass_retrieve(root_dir):
     for f in Path(root_dir).walk():
         if f.name == 'toolkit.json':
             with Path(f.dirname()):
-                with open_json('toolkit.json') as data:
-                    if 'jobdict' in data:
-                        jobdict = data['jobdict']
-                        if retrievable(jobdict, queue):
-                            print(f"{jobdict['hostname']}: {jobdict['remote']} -> {getcwd()}")
-                            retrieve(jobdict)
+                data = load('toolkit.json')
+                if 'jobdict' in data:
+                    jobdict = data['jobdict']
+                    if retrievable(jobdict, queue):
+                        print(f"{jobdict['hostname']}: {jobdict['remote']} -> {getcwd()}")
+                        retrieve(jobdict)
+
+
+def mass_report(root_dir):
+    report = pd.DataFrame()
+    queue = squeue()
+    for f in Path(root_dir).walk():
+        if f.name == 'toolkit.json':
+            with Path(f.dirname()):
+                data = load('toolkit.json')
+                if 'jobdict' in data and 'submit' in jobdict:
+                    jobdict = data['jobdict']
+                    del jobdict['submit']
+                    jobdict['local'] = getcwd()
+                    report = report.append(jobdict, ignore_index=True)
+    return pd.merge(report, queue, on='job_name', how='left')
