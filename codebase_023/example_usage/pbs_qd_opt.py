@@ -60,7 +60,7 @@ signature = {
         'opt<-': str
     },
     'about': {
-        'toolkit_version': str,
+        'version': str,
         'workflow': str,    # optional
         'struct_metadata': dict     # optional
     }
