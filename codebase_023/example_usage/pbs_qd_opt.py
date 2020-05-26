@@ -16,6 +16,7 @@ from codebase_023.toolkit.functions import template, exec_file
 from codebase_023.toolkit.io.vasp import struct2poscar
 from codebase_023.toolkit.io.json import json
 from codebase_023.example_usage.templates import TEMPLATES
+from codebase_023.toolkit.struct import Struct
 from codebase_023.toolkit.utils import b64uuid
 
 
@@ -50,4 +51,17 @@ def write_additional_metadata():
         }
 
 
-# scp; sbatch; rsync
+signature = {
+    'uuid': str,
+    'd': dict,
+    'struct': Struct,
+    'jobdict': dict,    # optional
+    'relations': {      # optional
+        'opt<-': str
+    },
+    'about': {
+        'toolkit_version': str,
+        'workflow': str,    # optional
+        'struct_metadata': dict     # optional
+    }
+}

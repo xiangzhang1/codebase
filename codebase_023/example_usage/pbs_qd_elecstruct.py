@@ -49,5 +49,3 @@ def write_additional_metadata():
             # 'struct_metadata': dict
         }
 
-
-# scp; sbatch; rsync
