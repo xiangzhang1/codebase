@@ -1,0 +1,10 @@
+#!/bin/bash
+touch state
+for hostname in eccle nanaimo irmik cori comet
+do
+  ssh $hostname "squeue -u xzhang1 -h -o '%j %T'" >> state
+done
+if [[ `pgrep vasp` ]]
+then
+  echo "localhost RUNNING" >> state
+fi

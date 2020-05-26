@@ -1,2 +1,0 @@
-echo "{hostname}:{remote} -> {local}"
-rsync --remove-source-files -a --info=progress2 {hostname}:{remote}/ {local}

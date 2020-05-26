@@ -1,7 +1,7 @@
 import numpy as np
 
 import toolkit.struct
-import toolkit.d
+import toolkit.functions
 from toolkit.struct import Struct, XS
 
 

@@ -2,7 +2,7 @@
 # gotcha: bash redirect - 2>&1 >out vs >out 2>&1
 # gotcha: rsync '(folder)' doesn't escape properly
 # CAUTION: no support for special characters (space, bracket) in local or job_name!
-rsync -a --info=progress2 {local}/ {hostname}:{remote}
+rsync -a --info=progress2 ./ {hostname}:{remote}
 ssh {hostname} <<EOF
   cd {remote}
   nohup bash subfile > nohup.out &

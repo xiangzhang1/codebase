@@ -1,5 +1,0 @@
-if [[ $(ssh {hostname} "pgrep vasp") ]]; then
-  echo "{hostname} RUNNING " >> state
-else
-  echo >> state
-fi

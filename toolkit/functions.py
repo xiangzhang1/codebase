@@ -1,8 +1,3 @@
-import os
-
-TEMPLATE = os.path.join(os.path.dirname(__file__), 'templates')
-
-
 def exec_file(fname, d):
     with open(fname) as f:
         exec(f.read(), globals(), d)

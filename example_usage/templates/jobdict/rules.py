@@ -1,7 +1,5 @@
-from toolkit.utils import b64uuid, random_string
-from os import getcwd
-
-uid = b64uuid()
+from toolkit.utils import random_string
+import os
 
 hostname = {
     'comet': 'comet',
@@ -33,12 +31,10 @@ remote = {
     'nanaimo': f'{uid}'
 }[cluster]
 
-local = getcwd()
-
 if hosttype != 'node':
-    job_name = local + '_' + random_string(4)   # practicality beats purity
+    job_name = os.path.basename(os.getcwd()) + '_' + random_string(4)   # practicality beats purity
 else:
-    job_name = hostname                         # refresh/node
+    job_name = hostname
 
 del cluster
-del b64uuid, random_string, getcwd  # don't want you polluting namespace
+del random_string, os  # don't want you polluting namespace

@@ -11,11 +11,9 @@ Returns
 -------
 jobdict : dict
     adds {
-        'uuid': str,
-        'hostname': str,    # haswell -> cori
+        'hostname': str,
         'hosttype': str,
-        'local': str,       # submit, retrieve
-        'remote': str,      # /scratch/xzhang1
+        'remote': str,
         'job_name': str
     }
     removes {
