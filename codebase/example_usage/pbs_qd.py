@@ -31,14 +31,14 @@ def to_vasp_subfile(d, struct):
     copy(f"{TEMPLATES}/pbs_qd/vasp/POTCAR", "POTCAR")
 
     # to subfile
-    template(i=f"{TEMPLATES}/pbs_qd_opt/sub_vasp/{d['cluster']}", o="subfile", d=d)
+    template(i=f"{TEMPLATES}/pbs_qd/sub_vasp/{d['cluster']}", o="subfile", d=d)
 
     # write metadata
     with open_json('toolkit.json') as data:
         data['uuid'] = b64uuid()
         data['d'] = d
         data['struct'] = struct
-        # data['relations'] = {'opt<-': uuid},
+        # data['relations'] = {'opt<-': prev_uuid},
         data['about'] = {
             'workflow': 'pbs_qd_opt',
             'version': '0.2.3'
