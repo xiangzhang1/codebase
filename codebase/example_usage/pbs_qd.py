@@ -21,7 +21,6 @@ from codebase.toolkit.utils import b64uuid
 
 
 def to_vasp_subfile(d, struct):
-
     # prepare d
     exec_file(f"{TEMPLATES}/pbs_qd/sub_vasp/rules.py", d)
 
