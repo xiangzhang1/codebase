@@ -24,7 +24,7 @@ def prepare_jobdict(d):
 
 def submit(jobdict):
     template(i=f"{TEMPLATES}/jobdict/submit/{jobdict['hosttype']}", o="submit", d=jobdict)
-    subprocess.run(['bash', 'submit'])
+    print(subprocess.check_output(['bash', 'submit']).decode())
     with open_json('toolkit.json') as data:
         jobdict['submit'] = True
         data['jobdict'] = jobdict
