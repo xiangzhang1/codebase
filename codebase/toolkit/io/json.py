@@ -3,7 +3,7 @@ from os.path import exists
 import numpy as np
 import pandas as pd
 import json
-from codebase_debug.toolkit.struct import Struct
+from codebase.toolkit.struct import Struct
 
 
 """
