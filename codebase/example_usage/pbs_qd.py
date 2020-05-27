@@ -21,7 +21,7 @@ from codebase.toolkit.utils import b64uuid
 
 
 def prepare_d(d):
-    exec_file(f"{TEMPLATES}/pbs_qd_opt/sub_vasp/rules.py", d)
+    exec_file(f"{TEMPLATES}/pbs_qd/sub_vasp/rules.py", d)
     with open_json('toolkit.json') as data:
         data['d'] = d
 
@@ -29,8 +29,8 @@ def prepare_d(d):
 def to_vasp_opt(d, struct):
     template(i=f"{TEMPLATES}/pbs_qd/vasp/INCAR_opt", o="INCAR", d=d)
     struct2poscar(struct, 'POSCAR')
-    copy(f"{TEMPLATES}/pbs_qd_opt/vasp/KPOINTS", "KPOINTS")
-    copy(f"{TEMPLATES}/pbs_qd_opt/vasp/POTCAR", "POTCAR")
+    copy(f"{TEMPLATES}/pbs_qd/vasp/KPOINTS", "KPOINTS")
+    copy(f"{TEMPLATES}/pbs_qd/vasp/POTCAR", "POTCAR")
     with open_json('toolkit.json') as data:
         data['struct'] = struct
 
@@ -38,8 +38,8 @@ def to_vasp_opt(d, struct):
 def to_vasp_elecstruct(d, struct):
     template(i=f"{TEMPLATES}/pbs_qd/vasp/INCAR_sc_bd_lm", o="INCAR", d=d)
     struct2poscar(struct, 'POSCAR')
-    copy(f"{TEMPLATES}/pbs_qd_opt/vasp/KPOINTS", "KPOINTS")
-    copy(f"{TEMPLATES}/pbs_qd_opt/vasp/POTCAR", "POTCAR")
+    copy(f"{TEMPLATES}/pbs_qd/vasp/KPOINTS", "KPOINTS")
+    copy(f"{TEMPLATES}/pbs_qd/vasp/POTCAR", "POTCAR")
     with open_json('toolkit.json') as data:
         data['struct'] = struct
 
@@ -48,12 +48,12 @@ def to_subfile(d):
     template(i=f"{TEMPLATES}/pbs_qd_opt/sub_vasp/{d['cluster']}", o="subfile", d=d)
 
 
-def write_additional_metadata():
+def _write_additional_metadata():
     with open_json('toolkit.json') as data:
         data['uuid'] = b64uuid()
-        # data['relations'] = {'opt<-': uuid}
+        # data['relations'] = {'opt<-': uuid},
         data['about'] = {
-            'workflow': 'pbs_qd_opt',
+            'workflow': 'pbs_qd_opt',   # pbs_qd_elecstruct, pbs_qd_2hour, pbs_qd_opt_acc
             'version': '0.2.3',
             # 'struct_metadata': dict
         }
