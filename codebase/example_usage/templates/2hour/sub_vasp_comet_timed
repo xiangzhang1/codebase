@@ -7,7 +7,8 @@
 #SBATCH --error=error
 #SBATCH --export=ALL
 
-date
 module load vasp/5.4.4  # XSEDE ticket #134504: vasp 6 not on all nodes
+
+date
 mpirun -np {ntask} vasp_gam
 date

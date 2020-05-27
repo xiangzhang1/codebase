@@ -38,7 +38,7 @@ def to_vasp_subfile(d, struct):
         data['uuid'] = b64uuid()
         data['d'] = d
         data['struct'] = struct
-        # data['relations'] = {'opt<-': prev_uuid},
+        # data['relations'] = {'opt<-': prev_uuid}
         data['about'] = {
             'workflow': 'pbs_qd_opt',
             'version': '0.2.3'

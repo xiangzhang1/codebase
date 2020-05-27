@@ -1,16 +1,12 @@
 import numpy as np
-
-import codebase.toolkit.struct
 from codebase.toolkit.struct import Struct, XS
 
 
-def repad(struct, pad):
-    X = codebase.toolkit.struct.XS[['X', 'Y', 'Z']]
-    S = codebase.toolkit.struct.XS.S
+def pad_to(struct, pad_to):
+    X = struct.XS[['X', 'Y', 'Z']]
+    S = struct.XS.S
 
-    X -= np.amin(X, axis=0)
-    box = np.amax(X, axis=0)
+    X = X - X.mean() + pad_to / 2.
+    A = np.diag(pad_to)
 
-    A = np.diag(box + 2 * pad)
-    X += pad
     return Struct(A=A, XS=XS(X, S))

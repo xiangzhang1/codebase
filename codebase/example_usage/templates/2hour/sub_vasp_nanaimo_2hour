@@ -13,4 +13,6 @@ module purge
 module load intel
 module load impi
 
+date
 mpirun -np {ntask} /opt/vasp.5.4.4.16052018/bin/vasp_gam
+date
