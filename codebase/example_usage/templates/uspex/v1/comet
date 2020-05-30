@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH --nodes={nnode}
+#SBATCH --ntasks-per-node={taskpernode}
+#SBATCH --partition=compute
+#SBATCH -t 48:00:00
+#SBATCH --output=slurm-%j.out
+#SBATCH --error=slurm-%j.err
+#SBATCH --export=ALL
+
+module load vasp/5.4.4  # XSEDE ticket #134504: vasp 6 not on all nodes
+
+cp INCAR1 INCAR
+date
+mpirun -np {ntask} vasp_gam
+date
+
+cp CONTCAR CONTCAR1
+cp CONTCAR POSCAR
+cp INCAR2 INCAR
+date
+mpirun -np {ntask} vasp_gam
+date

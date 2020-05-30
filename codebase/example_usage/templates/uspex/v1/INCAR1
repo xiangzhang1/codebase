@@ -1,0 +1,21 @@
+# mode
+ISTART = 0
+ICHARG = 2
+
+ISIF = 0
+IBRION = 2
+NSW = 1000
+NELM = 40
+EDIFF = 2E-2
+EDIFFG = 1E-1
+ISYM = 0
+
+# dft
+ISMEAR = 0
+SIGMA = 0.05
+ISPIN = 2
+LREAL = Auto
+PREC = Low
+
+# behavior
+NCORE = {taskpernode}
