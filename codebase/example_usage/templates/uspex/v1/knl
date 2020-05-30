@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH -N {nnode}
+#SBATCH -C knl
+#SBATCH -q {queue}
+#SBATCH -t 48:00:00
+#SBATCH -o output
+#SBATCH -e error
+
+module load vasp/20181030-knl
+export OMP_NUM_THREADS=4
+
+cp INCAR1 INCAR
+date
+srun -n{ntask} -c16 --cpu_bind=cores vasp_gam
+date
+
+cp CONTCAR CONTCAR1
+cp CONTCAR POSCAR
+cp INCAR2 INCAR
+date
+srun -n{ntask} -c16 --cpu_bind=cores vasp_gam
+date
