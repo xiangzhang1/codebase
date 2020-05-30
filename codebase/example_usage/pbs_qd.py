@@ -43,3 +43,6 @@ def to_vasp_subfile(d, struct):
             'workflow': 'pbs_qd_opt',
             'version': '0.2.3'
         }
+
+
+from codebase.example_usage.jobdict import prepare_jobdict, submit
