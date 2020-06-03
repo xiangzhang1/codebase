@@ -34,7 +34,7 @@ def retrieve(jobdict):
     # retrieve to .
     assert jobdict['hostname'] != 'localhost'
     template(i=f"{TEMPLATES}/jobdict/retrieve", o="retrieve", d=jobdict)
-    subprocess.run(['bash', 'retrieve'])
+    subprocess.check_call(['bash', 'retrieve'])     # gotcha: subprocess - bash errors, subprocess returns
     with open_json('toolkit.json') as data:
         del jobdict['submit']
         data['jobdict'] = jobdict
@@ -42,7 +42,7 @@ def retrieve(jobdict):
 
 def squeue():
     copy(f"{TEMPLATES}/jobdict/squeue", '.')
-    subprocess.run(['bash', 'squeue'])
+    subprocess.check_call(['bash', 'squeue'])
     state = pd.read_csv("state", names=['job_name', 'state'], dtype=str, delim_whitespace=True)
     remove('squeue')
     remove('state')
