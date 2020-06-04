@@ -1,7 +1,9 @@
 # gotcha: nohup - no output by default
 # gotcha: bash redirect - 2>&1 >out vs >out 2>&1
 # gotcha: rsync '(folder)' doesn't escape properly
+# gotcha: bash continues after error
 # CAUTION: no support for special characters (space, bracket) in local or job_name!
+set -e
 rsync -a --info=progress2 ./ {hostname}:{remote}
 ssh {hostname} <<EOF
   cd {remote}

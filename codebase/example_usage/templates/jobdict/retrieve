@@ -1,1 +1,2 @@
+set -e
 rsync -a --remove-source-files --exclude 'toolkit.json' --info=progress2 {hostname}:{remote}/ .
